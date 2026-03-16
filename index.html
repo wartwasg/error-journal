@@ -6,429 +6,175 @@
 <title>Failure Journal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-
 <style>
-/* ═══════════════════════════════════════
-   DESIGN TOKENS
-═══════════════════════════════════════ */
 :root {
-  --bg:      #F8F8F7;
-  --surf:    #FFFFFF;
-  --surf2:   #F3F3F2;
-  --surf3:   #EAEAE8;
-  --bd:      #E5E5E3;
-  --bd2:     #CACAC6;
-
-  --t1: #111110;
-  --t2: #6C6C69;
-  --t3: #A4A4A0;
-
-  --red:    #C0320A; --red-bg:  #FFF1ED; --red-bd:  #FAC9A0;
-  --grn:    #1A7A47; --grn-bg:  #ECFDF4; --grn-bd:  #A6EFC4;
-  --blu:    #1A5EA8; --blu-bg:  #EEF4FF; --blu-bd:  #B5CFFA;
-  --amb:    #7B5000; --amb-bg:  #FFFBEB; --amb-bd:  #F8D98A;
-  --pur:    #6D3EC8; --pur-bg:  #F5F0FF; --pur-bd:  #D3BBFB;
-  --tel:    #0A7EA4; --tel-bg:  #EBF8FF; --tel-bd:  #A5D8F0;
-
-  --mono: 'IBM Plex Mono', monospace;
-  --disp: 'Syne', sans-serif;
-  --body: 'DM Sans', sans-serif;
-
-  --r:  4px; --r2: 8px; --r3: 12px;
-  --sh:  0 1px 2px rgba(0,0,0,.05);
-  --sh2: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.04);
-  --sh3: 0 8px 24px rgba(0,0,0,.09), 0 2px 6px rgba(0,0,0,.05);
-  --ease: cubic-bezier(.4,0,.2,1);
-  --dur: .15s;
+  --bg:#F8F8F7;--surf:#FFF;--surf2:#F3F3F2;--bd:#E5E5E3;--bd2:#CACAC6;
+  --t1:#111110;--t2:#6C6C69;--t3:#A4A4A0;
+  --red:#C0320A;--red-bg:#FFF1ED;--red-bd:#FAC9A0;
+  --grn:#1A7A47;--grn-bg:#ECFDF4;--grn-bd:#A6EFC4;
+  --blu:#1A5EA8;--blu-bg:#EEF4FF;--blu-bd:#B5CFFA;
+  --amb:#7B5000;--amb-bg:#FFFBEB;--amb-bd:#F8D98A;
+  --pur:#6D3EC8;--pur-bg:#F5F0FF;--pur-bd:#D3BBFB;
+  --tel:#0A7EA4;--tel-bg:#EBF8FF;--tel-bd:#A5D8F0;
+  --mono:'IBM Plex Mono',monospace;--disp:'Syne',sans-serif;--body:'DM Sans',sans-serif;
+  --r:4px;--r2:8px;--r3:12px;
+  --sh:0 1px 2px rgba(0,0,0,.05);
+  --sh2:0 1px 3px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.04);
+  --sh3:0 8px 24px rgba(0,0,0,.09),0 2px 6px rgba(0,0,0,.05);
+  --ease:cubic-bezier(.4,0,.2,1);--dur:.15s;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--bg);color:var(--t1);font-family:var(--body);font-size:14px;line-height:1.6;min-height:100vh}
 
-/* ═══════════════════════════════════════
-   RESET
-═══════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-body {
-  background: var(--bg);
-  color: var(--t1);
-  font-family: var(--body);
-  font-size: 14px;
-  line-height: 1.6;
-  min-height: 100vh;
-}
+/* HEADER */
+.hdr{background:rgba(255,255,255,.92);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:50;backdrop-filter:blur(10px)}
+.hdr-in{max-width:1260px;margin:0 auto;padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hdr-l{display:flex;align-items:center;gap:20px}
+.brand{font-family:var(--disp);font-size:14px;font-weight:700;color:var(--t1);letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+.brand-mark{width:28px;height:28px;background:var(--t1);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.brand-mark svg{width:15px;height:15px;color:#fff;stroke-width:2.5}
+.vsep{width:1px;height:18px;background:var(--bd)}
+.hdr-ctx{font-size:13px;color:var(--t2)}
+.hdr-r{display:flex;align-items:center;gap:10px}
+.spill{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:99px;border:1px solid var(--bd);background:var(--surf2);font-family:var(--mono);font-size:11px;color:var(--t2);transition:all var(--dur) var(--ease)}
+.spill.ok{background:var(--grn-bg);border-color:var(--grn-bd);color:var(--grn)}
+.spill.err{background:var(--red-bg);border-color:var(--red-bd);color:var(--red)}
+.sdot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.spill.ok .sdot{animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.ebadge{font-family:var(--mono);font-size:11px;color:var(--t3);background:var(--surf2);border:1px solid var(--bd);padding:4px 11px;border-radius:99px}
 
-/* ═══════════════════════════════════════
-   HEADER
-═══════════════════════════════════════ */
-.hdr {
-  background: rgba(255,255,255,.92);
-  border-bottom: 1px solid var(--bd);
-  position: sticky; top: 0; z-index: 50;
-  backdrop-filter: blur(10px);
-}
-.hdr-in {
-  max-width: 1260px; margin: 0 auto;
-  padding: 0 28px; height: 56px;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-}
-.hdr-l { display: flex; align-items: center; gap: 20px; }
-.brand {
-  font-family: var(--disp); font-size: 14px; font-weight: 700;
-  color: var(--t1); letter-spacing: -.02em;
-  display: flex; align-items: center; gap: 9px;
-}
-.brand-mark {
-  width: 28px; height: 28px; background: var(--t1);
-  border-radius: 7px; display: flex; align-items: center; justify-content: center;
-}
-.brand-mark svg { width: 15px; height: 15px; color: #fff; stroke-width: 2.5; }
-.vsep { width: 1px; height: 18px; background: var(--bd); }
-.hdr-ctx { font-size: 13px; color: var(--t2); }
-.hdr-r { display: flex; align-items: center; gap: 10px; }
+/* TOAST */
+.toast{position:fixed;top:68px;right:22px;z-index:200;display:flex;align-items:center;gap:9px;padding:11px 15px;border-radius:var(--r2);border:1px solid;font-size:13px;font-weight:500;max-width:360px;box-shadow:var(--sh3);opacity:0;transform:translateY(-6px) scale(.97);transition:opacity .2s var(--ease),transform .2s var(--ease);pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.toast.ok{background:var(--grn-bg);border-color:var(--grn-bd);color:var(--grn)}
+.toast.err{background:var(--red-bg);border-color:var(--red-bd);color:var(--red)}
+.toast.inf{background:var(--blu-bg);border-color:var(--blu-bd);color:var(--blu)}
+.toast svg{flex-shrink:0;width:15px;height:15px}
 
-.spill {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 4px 11px; border-radius: 99px;
-  border: 1px solid var(--bd); background: var(--surf2);
-  font-family: var(--mono); font-size: 11px; color: var(--t2);
-  transition: all var(--dur) var(--ease);
-}
-.spill.ok  { background: var(--grn-bg); border-color: var(--grn-bd); color: var(--grn); }
-.spill.err { background: var(--red-bg); border-color: var(--red-bd); color: var(--red); }
-.sdot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: currentColor; flex-shrink: 0;
-}
-.spill.ok .sdot { animation: blink 2s ease infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
+/* LAYOUT */
+.wrap{max-width:1260px;margin:0 auto;padding:24px 28px;display:grid;grid-template-columns:360px 1fr;gap:20px;align-items:start}
+@media(max-width:960px){.wrap{grid-template-columns:1fr;padding:16px}.fpanel{position:static!important}}
 
-.ebadge {
-  font-family: var(--mono); font-size: 11px; color: var(--t3);
-  background: var(--surf2); border: 1px solid var(--bd);
-  padding: 4px 11px; border-radius: 99px;
-}
+/* PANELS */
+.panel{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r3);box-shadow:var(--sh);overflow:hidden}
+.phd{padding:13px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ptitle{font-family:var(--disp);font-size:11px;font-weight:700;color:var(--t2);letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:7px}
+.ptitle svg{color:var(--t3);width:13px;height:13px}
+.pbd{padding:20px}
+@media(min-width:960px){.fpanel{position:sticky;top:68px;max-height:calc(100vh - 88px);overflow-y:auto}}
 
-/* ═══════════════════════════════════════
-   TOAST
-═══════════════════════════════════════ */
-.toast {
-  position: fixed; top: 68px; right: 22px; z-index: 200;
-  display: flex; align-items: center; gap: 9px;
-  padding: 11px 15px; border-radius: var(--r2);
-  border: 1px solid; font-size: 13px; font-weight: 500;
-  max-width: 360px; box-shadow: var(--sh3);
-  opacity: 0; transform: translateY(-6px) scale(.97);
-  transition: opacity .2s var(--ease), transform .2s var(--ease);
-  pointer-events: none;
-}
-.toast.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-.toast.ok   { background: var(--grn-bg); border-color: var(--grn-bd); color: var(--grn); }
-.toast.err  { background: var(--red-bg); border-color: var(--red-bd); color: var(--red); }
-.toast.inf  { background: var(--blu-bg); border-color: var(--blu-bd); color: var(--blu); }
-.toast svg  { flex-shrink: 0; width: 15px; height: 15px; }
+/* FORM */
+.fld{margin-bottom:14px}
+label{display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
+label .req{color:var(--red);margin-left:1px}
+label .opt{font-weight:400;text-transform:none;color:var(--t3);letter-spacing:0}
+input[type=text],textarea,select{width:100%;background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);color:var(--t1);font-family:var(--body);font-size:13px;padding:8px 10px;outline:none;transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease);resize:vertical;-webkit-appearance:none}
+input[type=text]:hover,textarea:hover{border-color:var(--bd2)}
+input[type=text]:focus,textarea:focus,select:focus{border-color:var(--t1);box-shadow:0 0 0 3px rgba(17,17,16,.06)}
+input::placeholder,textarea::placeholder{color:var(--t3);font-weight:300}
+.ferr{font-size:11px;color:var(--red);margin-top:3px;min-height:16px}
+.fft{display:flex;gap:8px;margin-top:20px;padding-top:20px;border-top:1px solid var(--bd)}
 
-/* ═══════════════════════════════════════
-   LAYOUT
-═══════════════════════════════════════ */
-.wrap {
-  max-width: 1260px; margin: 0 auto;
-  padding: 24px 28px;
-  display: grid; grid-template-columns: 360px 1fr;
-  gap: 20px; align-items: start;
-}
-@media (max-width: 960px) {
-  .wrap { grid-template-columns: 1fr; padding: 16px; }
-  .fpanel { position: static !important; }
-}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;font-family:var(--body);font-size:13px;font-weight:500;border-radius:var(--r);border:1px solid transparent;cursor:pointer;transition:all var(--dur) var(--ease);white-space:nowrap;user-select:none;line-height:1}
+.btn svg{flex-shrink:0;width:13px;height:13px}
+.bp{background:var(--t1);color:#fff;border-color:var(--t1)}
+.bp:hover{background:#2c2c2a;border-color:#2c2c2a;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.bp:active{transform:scale(.98)}
+.bs{background:var(--surf);color:var(--t1);border-color:var(--bd)}
+.bs:hover{border-color:var(--bd2);background:var(--surf2)}
+.bg{background:transparent;color:var(--t2);border-color:transparent}
+.bg:hover{background:var(--surf2);color:var(--t1)}
+.bd-btn{background:var(--red-bg);color:var(--red);border-color:var(--red-bd)}
+.bd-btn:hover{background:#fbd5c2;border-color:var(--red)}
+.sm{padding:5px 9px;font-size:12px}
+.sm svg{width:12px;height:12px}
+.btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
 
-/* ═══════════════════════════════════════
-   PANELS
-═══════════════════════════════════════ */
-.panel {
-  background: var(--surf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r3);
-  box-shadow: var(--sh);
-  overflow: hidden;
-}
-.phd {
-  padding: 13px 20px;
-  border-bottom: 1px solid var(--bd);
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
-.ptitle {
-  font-family: var(--disp); font-size: 11px; font-weight: 700;
-  color: var(--t2); letter-spacing: .06em; text-transform: uppercase;
-  display: flex; align-items: center; gap: 7px;
-}
-.ptitle svg { color: var(--t3); width: 13px; height: 13px; }
-.pbd { padding: 20px; }
+/* CONTROLS */
+.ctrl{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.srch{position:relative}
+.srch svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none;width:13px;height:13px}
+.si{padding-left:29px!important;width:190px!important;padding-top:6px!important;padding-bottom:6px!important;font-size:13px!important;resize:none!important}
+.ts{width:130px!important;padding:6px 26px 6px 9px!important;font-size:12px!important;font-family:var(--mono)!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A4A4A0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;cursor:pointer}
 
-@media (min-width: 960px) {
-  .fpanel {
-    position: sticky;
-    top: 68px;
-    max-height: calc(100vh - 88px);
-    overflow-y: auto;
-  }
-}
+/* STATES */
+.st-load,.st-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:64px 20px;color:var(--t3);font-size:13px;text-align:center}
+.spin{width:20px;height:20px;border:2px solid var(--bd);border-top-color:var(--t1);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.st-empty svg{color:var(--bd2)}
+.et{font-weight:500;color:var(--t2);font-size:14px}
+.es{font-size:12px}
 
-/* ═══════════════════════════════════════
-   FORM
-═══════════════════════════════════════ */
-.fld { margin-bottom: 14px; }
+/* CARDS */
+.card{border:1px solid var(--bd);border-radius:var(--r2);background:var(--surf);margin-bottom:8px;overflow:hidden;transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease),transform var(--dur) var(--ease);animation:ci .22s var(--ease)}
+@keyframes ci{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.card:hover{border-color:var(--bd2);box-shadow:var(--sh2);transform:translateY(-1px)}
+.ctop{padding:14px 16px;cursor:pointer;display:flex;gap:11px;align-items:flex-start}
+.cid{font-family:var(--mono);font-size:10px;color:var(--t3);padding-top:3px;min-width:34px;flex-shrink:0}
+.cbdy{flex:1;min-width:0}
+.ctitl{font-family:var(--disp);font-size:14px;font-weight:700;color:var(--t1);letter-spacing:-.01em;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ccomp{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:11px;color:var(--red);background:var(--red-bg);border:1px solid var(--red-bd);padding:2px 7px;border-radius:3px;font-weight:500}
+.ccomp svg{width:9px;height:9px}
+.ctim,.cath{font-size:11px;color:var(--t3);display:inline-flex;align-items:center;gap:3px}
+.ctim svg,.cath svg{width:11px;height:11px}
+.cchev{color:var(--t3);flex-shrink:0;margin-top:2px;transition:transform var(--dur) var(--ease)}
+.card:hover .cchev{transform:translateX(2px);color:var(--t2)}
+.cbot{padding:0 16px 12px 61px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ctags{display:flex;flex-wrap:wrap;gap:4px}
+.tg{font-family:var(--mono);font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px;border:1px solid;cursor:pointer;letter-spacing:.01em;transition:opacity var(--dur) var(--ease)}
+.tg:hover{opacity:.65}
+.tg0{color:var(--blu);border-color:var(--blu-bd);background:var(--blu-bg)}
+.tg1{color:var(--grn);border-color:var(--grn-bd);background:var(--grn-bg)}
+.tg2{color:var(--amb);border-color:var(--amb-bd);background:var(--amb-bg)}
+.tg3{color:var(--pur);border-color:var(--pur-bd);background:var(--pur-bg)}
+.tg4{color:var(--tel);border-color:var(--tel-bd);background:var(--tel-bg)}
+.cacts{display:flex;gap:4px;opacity:0;transition:opacity var(--dur) var(--ease)}
+.card:hover .cacts{opacity:1}
 
-label {
-  display: block; font-size: 11px; font-weight: 600;
-  color: var(--t2); margin-bottom: 5px;
-  letter-spacing: .04em; text-transform: uppercase;
-}
-label .req { color: var(--red); margin-left: 1px; }
-label .opt { font-weight: 400; text-transform: none; color: var(--t3); letter-spacing: 0; }
-
-input[type=text], textarea, select {
-  width: 100%; background: var(--surf);
-  border: 1px solid var(--bd); border-radius: var(--r);
-  color: var(--t1); font-family: var(--body); font-size: 13px;
-  padding: 8px 10px; outline: none;
-  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-  resize: vertical; -webkit-appearance: none;
-}
-input[type=text]:hover, textarea:hover { border-color: var(--bd2); }
-input[type=text]:focus, textarea:focus, select:focus {
-  border-color: var(--t1);
-  box-shadow: 0 0 0 3px rgba(17,17,16,.06);
-}
-input::placeholder, textarea::placeholder { color: var(--t3); font-weight: 300; }
-
-.ferr { font-size: 11px; color: var(--red); margin-top: 3px; min-height: 16px; }
-
-.fft {
-  display: flex; gap: 8px;
-  margin-top: 20px; padding-top: 20px;
-  border-top: 1px solid var(--bd);
-}
-
-/* ═══════════════════════════════════════
-   BUTTONS
-═══════════════════════════════════════ */
-.btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 14px; font-family: var(--body);
-  font-size: 13px; font-weight: 500;
-  border-radius: var(--r); border: 1px solid transparent;
-  cursor: pointer; transition: all var(--dur) var(--ease);
-  white-space: nowrap; user-select: none; line-height: 1;
-}
-.btn svg { flex-shrink: 0; width: 13px; height: 13px; }
-
-.bp { background: var(--t1); color: #fff; border-color: var(--t1); }
-.bp:hover { background: #2c2c2a; border-color: #2c2c2a; box-shadow: 0 1px 4px rgba(0,0,0,.18); }
-.bp:active { transform: scale(.98); }
-
-.bs { background: var(--surf); color: var(--t1); border-color: var(--bd); }
-.bs:hover { border-color: var(--bd2); background: var(--surf2); }
-
-.bg { background: transparent; color: var(--t2); border-color: transparent; }
-.bg:hover { background: var(--surf2); color: var(--t1); }
-
-.bd-btn { background: var(--red-bg); color: var(--red); border-color: var(--red-bd); }
-.bd-btn:hover { background: #fbd5c2; border-color: var(--red); }
-
-.sm { padding: 5px 9px; font-size: 12px; }
-.sm svg { width: 12px; height: 12px; }
-.btn:disabled { opacity: .4; cursor: not-allowed; pointer-events: none; }
-
-/* ═══════════════════════════════════════
-   JOURNAL CONTROLS
-═══════════════════════════════════════ */
-.ctrl { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
-.srch { position: relative; }
-.srch svg {
-  position: absolute; left: 9px; top: 50%;
-  transform: translateY(-50%); color: var(--t3);
-  pointer-events: none; width: 13px; height: 13px;
-}
-.si {
-  padding-left: 29px !important; width: 190px !important;
-  padding-top: 6px !important; padding-bottom: 6px !important;
-  font-size: 13px !important; resize: none !important;
-}
-.ts {
-  width: 130px !important; padding: 6px 26px 6px 9px !important;
-  font-size: 12px !important; font-family: var(--mono) !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A4A4A0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 7px center; cursor: pointer;
-}
-
-/* ═══════════════════════════════════════
-   STATES
-═══════════════════════════════════════ */
-.st-load, .st-empty {
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: center; gap: 10px;
-  padding: 64px 20px; color: var(--t3); font-size: 13px; text-align: center;
-}
-.spin {
-  width: 20px; height: 20px;
-  border: 2px solid var(--bd); border-top-color: var(--t1);
-  border-radius: 50%; animation: spin .7s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.st-empty svg { color: var(--bd2); }
-.et { font-weight: 500; color: var(--t2); font-size: 14px; }
-.es { font-size: 12px; }
-
-/* ═══════════════════════════════════════
-   CARDS
-═══════════════════════════════════════ */
-.card {
-  border: 1px solid var(--bd); border-radius: var(--r2);
-  background: var(--surf); margin-bottom: 8px; overflow: hidden;
-  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
-  animation: ci .22s var(--ease);
-}
-@keyframes ci { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
-.card:hover { border-color: var(--bd2); box-shadow: var(--sh2); transform: translateY(-1px); }
-
-.ctop { padding: 14px 16px; cursor: pointer; display: flex; gap: 11px; align-items: flex-start; }
-.cid  { font-family: var(--mono); font-size: 10px; color: var(--t3); padding-top: 3px; min-width: 34px; flex-shrink: 0; }
-.cbdy { flex: 1; min-width: 0; }
-
-.ctitl {
-  font-family: var(--disp); font-size: 14px; font-weight: 700;
-  color: var(--t1); letter-spacing: -.01em; margin-bottom: 5px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.cmeta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-
-.ccomp {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-family: var(--mono); font-size: 11px; color: var(--red);
-  background: var(--red-bg); border: 1px solid var(--red-bd);
-  padding: 2px 7px; border-radius: 3px; font-weight: 500;
-}
-.ccomp svg { width: 9px; height: 9px; }
-
-.ctim, .cath {
-  font-size: 11px; color: var(--t3);
-  display: inline-flex; align-items: center; gap: 3px;
-}
-.ctim svg, .cath svg { width: 11px; height: 11px; }
-
-.cchev { color: var(--t3); flex-shrink: 0; margin-top: 2px; transition: transform var(--dur) var(--ease); }
-.card:hover .cchev { transform: translateX(2px); color: var(--t2); }
-
-.cbot { padding: 0 16px 12px 61px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.ctags { display: flex; flex-wrap: wrap; gap: 4px; }
-
-.tg {
-  font-family: var(--mono); font-size: 10px; font-weight: 500;
-  padding: 2px 7px; border-radius: 3px; border: 1px solid;
-  cursor: pointer; letter-spacing: .01em;
-  transition: opacity var(--dur) var(--ease);
-}
-.tg:hover { opacity: .65; }
-.tg0 { color: var(--blu); border-color: var(--blu-bd); background: var(--blu-bg); }
-.tg1 { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
-.tg2 { color: var(--amb); border-color: var(--amb-bd); background: var(--amb-bg); }
-.tg3 { color: var(--pur); border-color: var(--pur-bd); background: var(--pur-bg); }
-.tg4 { color: var(--tel); border-color: var(--tel-bd); background: var(--tel-bg); }
-
-.cacts { display: flex; gap: 4px; opacity: 0; transition: opacity var(--dur) var(--ease); }
-.card:hover .cacts { opacity: 1; }
-
-/* ═══════════════════════════════════════
-   MODALS
-═══════════════════════════════════════ */
-.ov {
-  position: fixed; inset: 0;
-  background: rgba(17,17,16,.45);
-  z-index: 300; display: flex; align-items: center;
-  justify-content: center; padding: 20px;
-  backdrop-filter: blur(3px);
-  animation: fo .18s var(--ease);
-}
-@keyframes fo { from{opacity:0} to{opacity:1} }
-
-.modal {
-  background: var(--surf); border: 1px solid var(--bd);
-  border-radius: var(--r3); box-shadow: var(--sh3);
-  max-width: 660px; width: 100%; max-height: 86vh;
-  overflow-y: auto; position: relative;
-  animation: mo .2s var(--ease);
-}
-.msm { max-width: 400px; }
-@keyframes mo { from{transform:translateY(-14px);opacity:0} to{transform:translateY(0);opacity:1} }
-
-.mhd {
-  padding: 20px 20px 16px; border-bottom: 1px solid var(--bd);
-  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
-}
-.mtitl {
-  font-family: var(--disp); font-size: 18px; font-weight: 700;
-  color: var(--t1); letter-spacing: -.02em; line-height: 1.3;
-}
-.msub {
-  margin-top: 6px; display: inline-flex; align-items: center; gap: 4px;
-  font-family: var(--mono); font-size: 11px; color: var(--red);
-  background: var(--red-bg); border: 1px solid var(--red-bd);
-  padding: 2px 8px; border-radius: 3px;
-}
-.msub svg { width: 9px; height: 9px; }
-
-.mcls {
-  width: 28px; height: 28px; border-radius: var(--r);
-  border: 1px solid var(--bd); background: transparent;
-  color: var(--t2); cursor: pointer;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  transition: all var(--dur) var(--ease);
-}
-.mcls:hover { background: var(--surf2); border-color: var(--bd2); color: var(--t1); }
-.mcls svg { width: 14px; height: 14px; }
-
-.mbd { padding: 20px; }
-.msec { margin-bottom: 16px; }
-.mlbl { font-size: 11px; font-weight: 600; color: var(--t3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
-.mval { font-size: 13.5px; color: var(--t1); line-height: 1.75; white-space: pre-wrap; }
-.mdiv { height: 1px; background: var(--bd); margin: 14px 0; }
-
-.mft {
-  padding: 13px 20px; border-top: 1px solid var(--bd);
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  background: var(--surf2);
-}
-.mmeta { font-family: var(--mono); font-size: 11px; color: var(--t3); }
-
-/* confirm */
-.confbd { padding: 32px 28px; text-align: center; }
-.confic {
-  width: 46px; height: 46px; border-radius: 50%;
-  background: var(--red-bg); border: 1px solid var(--red-bd);
-  display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
-}
-.confic svg { color: var(--red); width: 20px; height: 20px; }
-.conft { font-family: var(--disp); font-size: 16px; font-weight: 700; color: var(--t1); margin-bottom: 6px; }
-.confs { font-size: 13px; color: var(--t2); margin-bottom: 24px; }
-.confac { display: flex; gap: 8px; justify-content: center; }
-
-/* scrollbar */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--bd2); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--t3); }
+/* MODALS */
+.ov{position:fixed;inset:0;background:rgba(17,17,16,.45);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px);animation:fo .18s var(--ease)}
+@keyframes fo{from{opacity:0}to{opacity:1}}
+.modal{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r3);box-shadow:var(--sh3);max-width:660px;width:100%;max-height:86vh;overflow-y:auto;position:relative;animation:mo .2s var(--ease)}
+.msm{max-width:400px}
+@keyframes mo{from{transform:translateY(-14px);opacity:0}to{transform:translateY(0);opacity:1}}
+.mhd{padding:20px 20px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.mtitl{font-family:var(--disp);font-size:18px;font-weight:700;color:var(--t1);letter-spacing:-.02em;line-height:1.3}
+.msub{margin-top:6px;display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:11px;color:var(--red);background:var(--red-bg);border:1px solid var(--red-bd);padding:2px 8px;border-radius:3px}
+.msub svg{width:9px;height:9px}
+.mcls{width:28px;height:28px;border-radius:var(--r);border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all var(--dur) var(--ease)}
+.mcls:hover{background:var(--surf2);border-color:var(--bd2);color:var(--t1)}
+.mcls svg{width:14px;height:14px}
+.mbd{padding:20px}
+.msec{margin-bottom:16px}
+.mlbl{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.mval{font-size:13.5px;color:var(--t1);line-height:1.75;white-space:pre-wrap}
+.mdiv{height:1px;background:var(--bd);margin:14px 0}
+.mft{padding:13px 20px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surf2)}
+.mmeta{font-family:var(--mono);font-size:11px;color:var(--t3)}
+.confbd{padding:32px 28px;text-align:center}
+.confic{width:46px;height:46px;border-radius:50%;background:var(--red-bg);border:1px solid var(--red-bd);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.confic svg{color:var(--red);width:20px;height:20px}
+.conft{font-family:var(--disp);font-size:16px;font-weight:700;color:var(--t1);margin-bottom:6px}
+.confs{font-size:13px;color:var(--t2);margin-bottom:24px}
+.confac{display:flex;gap:8px;justify-content:center}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--t3)}
 </style>
 </head>
 <body>
 
-<!-- ═══════════ HEADER ═══════════ -->
 <header class="hdr">
   <div class="hdr-in">
     <div class="hdr-l">
       <div class="brand">
         <div class="brand-mark">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         Failure Journal
       </div>
@@ -436,22 +182,16 @@ input::placeholder, textarea::placeholder { color: var(--t3); font-weight: 300; 
       <div class="hdr-ctx">Incident &amp; Cascade Tracker</div>
     </div>
     <div class="hdr-r">
-      <div class="spill" id="spill">
-        <div class="sdot"></div>
-        <span id="stxt">Connecting…</span>
-      </div>
+      <div class="spill" id="spill"><div class="sdot"></div><span id="stxt">Connecting…</span></div>
       <div class="ebadge" id="ebadge">— entries</div>
     </div>
   </div>
 </header>
 
-<!-- ═══════════ TOAST ═══════════ -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- ═══════════ MAIN LAYOUT ═══════════ -->
 <main class="wrap">
 
-  <!-- FORM PANEL -->
   <aside class="panel fpanel">
     <div class="phd">
       <div class="ptitle">
@@ -461,46 +201,37 @@ input::placeholder, textarea::placeholder { color: var(--t3); font-weight: 300; 
     </div>
     <div class="pbd">
       <form id="incForm" novalidate>
-
         <div class="fld">
           <label for="f_title">Title <span class="req">*</span></label>
           <input type="text" id="f_title" placeholder="Brief description of the incident" maxlength="200" autocomplete="off" />
           <div class="ferr" id="err_title"></div>
         </div>
-
         <div class="fld">
           <label for="f_comp">Component Failed <span class="req">*</span></label>
           <input type="text" id="f_comp" placeholder="Auth Service, DB Replica, CDN…" maxlength="150" autocomplete="off" />
           <div class="ferr" id="err_comp"></div>
         </div>
-
         <div class="fld">
           <label for="f_casc">Cascade Explanation <span class="opt">(optional)</span></label>
           <textarea id="f_casc" rows="3" placeholder="How did the failure propagate?"></textarea>
         </div>
-
         <div class="fld">
           <label for="f_feed">Feedback Loops <span class="opt">(optional)</span></label>
           <textarea id="f_feed" rows="3" placeholder="Reinforcing or balancing loops triggered"></textarea>
         </div>
-
         <div class="fld">
           <label for="f_prev">Preventive Measures <span class="opt">(optional)</span></label>
           <textarea id="f_prev" rows="3" placeholder="Circuit breakers, runbooks, safeguards"></textarea>
         </div>
-
         <div class="fld">
           <label for="f_tags">Tags <span class="opt">(comma-separated)</span></label>
           <input type="text" id="f_tags" placeholder="database, timeout, prod, p0" autocomplete="off" />
         </div>
-
         <div class="fld">
           <label for="f_auth">Reported By <span class="opt">(optional)</span></label>
           <input type="text" id="f_auth" placeholder="Name or team" maxlength="100" autocomplete="off" />
         </div>
-
         <input type="hidden" id="editId" />
-
         <div class="fft">
           <button type="submit" class="btn bp" id="subBtn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -508,12 +239,10 @@ input::placeholder, textarea::placeholder { color: var(--t3); font-weight: 300; 
           </button>
           <button type="button" class="btn bs" id="cancelBtn" style="display:none">Cancel</button>
         </div>
-
       </form>
     </div>
   </aside>
 
-  <!-- JOURNAL PANEL -->
   <section class="panel">
     <div class="phd">
       <div class="ptitle">
@@ -532,10 +261,7 @@ input::placeholder, textarea::placeholder { color: var(--t3); font-weight: 300; 
       </div>
     </div>
     <div class="pbd" style="padding:14px">
-      <div class="st-load" id="stLoad">
-        <div class="spin"></div>
-        <span>Connecting to database…</span>
-      </div>
+      <div class="st-load" id="stLoad"><div class="spin"></div><span>Connecting to database…</span></div>
       <div class="st-empty" id="stEmpty" style="display:none">
         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
         <div class="et">No incidents logged yet</div>
@@ -547,14 +273,11 @@ input::placeholder, textarea::placeholder { color: var(--t3); font-weight: 300; 
 
 </main>
 
-<!-- ═══════════ DETAIL MODAL ═══════════ -->
+<!-- DETAIL MODAL -->
 <div class="ov" id="detOv" style="display:none">
   <div class="modal">
     <div class="mhd">
-      <div>
-        <div class="mtitl" id="mTitle"></div>
-        <div class="msub" id="mComp"></div>
-      </div>
+      <div><div class="mtitl" id="mTitle"></div><div class="msub" id="mComp"></div></div>
       <button class="mcls" id="detClose">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -564,19 +287,17 @@ input::placeholder, textarea::placeholder { color: var(--t3); font-weight: 300; 
       <div class="mmeta" id="mMeta"></div>
       <div style="display:flex;gap:8px">
         <button class="btn bs sm" id="mEdit">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          Edit
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit
         </button>
         <button class="btn bd-btn sm" id="mDel">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
-          Delete
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>Delete
         </button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════ CONFIRM MODAL ═══════════ -->
+<!-- CONFIRM MODAL -->
 <div class="ov" id="confOv" style="display:none">
   <div class="modal msm">
     <div class="confbd">
@@ -596,80 +317,42 @@ input::placeholder, textarea::placeholder { color: var(--t3); font-weight: 300; 
   </div>
 </div>
 
-<!-- ═══════════ APP SCRIPT ═══════════ -->
 <script>
 'use strict';
 
 /*
- * ═══════════════════════════════════════════════════════════════
- *  HOW THE DATABASE CONNECTION WORKS ON VERCEL
- * ═══════════════════════════════════════════════════════════════
- *  When this page is served from https://yourapp.vercel.app,
- *  the browser sends requests with a real HTTPS origin — not
- *  "null" like when opening from file://. Neon's CORS policy
- *  accepts real origins, so direct fetch() calls to the /sql
- *  HTTP API work without any proxy.
+ * ═══════════════════════════════════════════════════════════
+ *  WHY THIS WORKS NOW
+ * ═══════════════════════════════════════════════════════════
+ *  All fetch() calls go to /api/query — the SAME origin as
+ *  this page (https://yourapp.vercel.app/api/query).
  *
- *  Protocol: POST https://<neon-host>/sql
- *    Headers:
- *      Authorization:           Basic base64(user:password)
- *      Neon-Connection-String:  <full connection string>
- *      Content-Type:            application/json
- *    Body: { "query": "...", "params": [...] }
+ *  Same-origin requests are NEVER subject to CORS preflight.
+ *  The browser sends them directly without an OPTIONS check.
  *
- *  Response: { "rows": [...], "rowCount": N, "fields": [...] }
- * ═══════════════════════════════════════════════════════════════
+ *  /api/query.js (Vercel serverless function) then forwards
+ *  the query to Neon server-side, where CORS does not apply.
+ * ═══════════════════════════════════════════════════════════
  */
 
-// ── CONNECTION ───────────────────────────────────────────────
-const CONN =
-  'postgresql://neondb_owner:npg_eLT6d5RNUxWy@ep-jolly-wind-amrwqrqo-pooler.c-5.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+// All DB calls go to our own Vercel API route — same origin, zero CORS
+const API = '/api/query';
 
-function buildEndpoint(c) {
-  const u = new URL(c.replace(/^postgres(?:ql)?:\/\//, 'https://'));
-  return `https://${u.hostname}/sql`;
-}
-
-function buildAuth(c) {
-  const u = new URL(c.replace(/^postgres(?:ql)?:\/\//, 'https://'));
-  return 'Basic ' + btoa(`${decodeURIComponent(u.username)}:${decodeURIComponent(u.password)}`);
-}
-
-const ENDPOINT = buildEndpoint(CONN);
-const AUTH     = buildAuth(CONN);
-
-// ── SQL RUNNER ───────────────────────────────────────────────
-/**
- * Execute a parameterised SQL query against Neon's HTTP API.
- *
- * @param {string} query   - SQL with $1/$2 placeholders
- * @param {Array}  params  - Bound parameter values
- * @param {number} attempt - Internal retry counter (starts at 1)
- */
 async function sql(query, params = [], attempt = 1) {
   try {
-    const res = await fetch(ENDPOINT, {
+    const res = await fetch(API, {
       method: 'POST',
-      headers: {
-        'Content-Type':           'application/json',
-        'Authorization':          AUTH,
-        'Neon-Connection-String': CONN,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, params }),
     });
-
     if (!res.ok) {
       let msg = `HTTP ${res.status}`;
-      try { const b = await res.json(); msg = b.message || b.error || msg; } catch (_) {}
+      try { const b = await res.json(); msg = b.error || msg; } catch (_) {}
       throw new Error(msg);
     }
-
-    return await res.json();
-
+    return res.json();
   } catch (err) {
-    // Exponential backoff retry for transient network issues
-    const retryable = /fetch|network|timeout|503|502/i.test(err.message);
-    if (attempt <= 3 && retryable) {
+    if (attempt <= 3 && /fetch|network|timeout|503|502/i.test(err.message)) {
       await new Promise(r => setTimeout(r, 300 * Math.pow(2, attempt - 1)));
       return sql(query, params, attempt + 1);
     }
@@ -677,7 +360,6 @@ async function sql(query, params = [], attempt = 1) {
   }
 }
 
-// ── SCHEMA (auto-created, idempotent) ────────────────────────
 async function ensureSchema() {
   await sql(`
     CREATE TABLE IF NOT EXISTS failures (
@@ -694,206 +376,136 @@ async function ensureSchema() {
   `);
 }
 
-// ── CRUD ─────────────────────────────────────────────────────
 const db = {
-  all: () =>
-    sql('SELECT * FROM failures ORDER BY timestamp DESC')
-      .then(r => r.rows || []),
-
-  create: d =>
-    sql(
-      `INSERT INTO failures
-         (title,component_failed,cascade_explanation,
-          feedback_loops,preventive_measures,tags,created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`,
-      [d.title, d.comp, d.casc||null, d.feed||null, d.prev||null, d.tags, d.auth||null]
-    ).then(r => r.rows[0]),
-
-  update: (id, d) =>
-    sql(
-      `UPDATE failures
-       SET title=$1, component_failed=$2, cascade_explanation=$3,
-           feedback_loops=$4, preventive_measures=$5, tags=$6, created_by=$7
-       WHERE id=$8 RETURNING *`,
-      [d.title, d.comp, d.casc||null, d.feed||null, d.prev||null, d.tags, d.auth||null, id]
-    ).then(r => r.rows[0]),
-
-  del: id =>
-    sql('DELETE FROM failures WHERE id=$1', [id]),
+  all:    ()       => sql('SELECT * FROM failures ORDER BY timestamp DESC').then(r => r.rows || []),
+  create: (d)      => sql(
+    `INSERT INTO failures (title,component_failed,cascade_explanation,feedback_loops,preventive_measures,tags,created_by)
+     VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`,
+    [d.title,d.comp,d.casc||null,d.feed||null,d.prev||null,d.tags,d.auth||null]
+  ).then(r => r.rows[0]),
+  update: (id, d)  => sql(
+    `UPDATE failures SET title=$1,component_failed=$2,cascade_explanation=$3,
+     feedback_loops=$4,preventive_measures=$5,tags=$6,created_by=$7 WHERE id=$8 RETURNING *`,
+    [d.title,d.comp,d.casc||null,d.feed||null,d.prev||null,d.tags,d.auth||null,id]
+  ).then(r => r.rows[0]),
+  del:    (id)     => sql('DELETE FROM failures WHERE id=$1', [id]),
 };
 
-// ── APP STATE ────────────────────────────────────────────────
-let rows      = [];
-let activeRow = null;
-let delPend   = null;
-
-// ── DOM ──────────────────────────────────────────────────────
+// ── STATE & DOM ──────────────────────────────────────────────
+let rows=[], activeRow=null, delPend=null;
 const g = id => document.getElementById(id);
 const D = {
-  spill: g('spill'), stxt: g('stxt'), ebadge: g('ebadge'), toast: g('toast'),
-  form: g('incForm'), editId: g('editId'),
-  subBtn: g('subBtn'), subLbl: g('subLbl'), cancelBtn: g('cancelBtn'),
-  fTitle: g('f_title'), fComp: g('f_comp'), fCasc: g('f_casc'),
-  fFeed: g('f_feed'),   fPrev: g('f_prev'), fTags: g('f_tags'), fAuth: g('f_auth'),
-  eTitle: g('err_title'), eComp: g('err_comp'),
-  srchIn: g('srchIn'), tagSel: g('tagSel'), refBtn: g('refBtn'),
-  stLoad: g('stLoad'), stEmpty: g('stEmpty'), list: g('incList'),
-  detOv: g('detOv'), detClose: g('detClose'),
-  mTitle: g('mTitle'), mComp: g('mComp'), mBody: g('mBody'), mMeta: g('mMeta'),
-  mEdit: g('mEdit'), mDel: g('mDel'),
-  confOv: g('confOv'), confOk: g('confOk'), confNo: g('confNo'),
+  spill:g('spill'),stxt:g('stxt'),ebadge:g('ebadge'),toast:g('toast'),
+  form:g('incForm'),editId:g('editId'),subBtn:g('subBtn'),subLbl:g('subLbl'),cancelBtn:g('cancelBtn'),
+  fTitle:g('f_title'),fComp:g('f_comp'),fCasc:g('f_casc'),fFeed:g('f_feed'),
+  fPrev:g('f_prev'),fTags:g('f_tags'),fAuth:g('f_auth'),
+  eTitle:g('err_title'),eComp:g('err_comp'),
+  srchIn:g('srchIn'),tagSel:g('tagSel'),refBtn:g('refBtn'),
+  stLoad:g('stLoad'),stEmpty:g('stEmpty'),list:g('incList'),
+  detOv:g('detOv'),detClose:g('detClose'),
+  mTitle:g('mTitle'),mComp:g('mComp'),mBody:g('mBody'),mMeta:g('mMeta'),
+  mEdit:g('mEdit'),mDel:g('mDel'),
+  confOv:g('confOv'),confOk:g('confOk'),confNo:g('confNo'),
 };
 
-// ── TOAST ────────────────────────────────────────────────────
-const ICON = {
+const IC = {
   ok:  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
   err: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
   inf: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,
 };
 let toastTimer;
-function toast(msg, type = 'inf', ms = 3500) {
+function toast(msg,type='inf',ms=3500){
   clearTimeout(toastTimer);
-  D.toast.innerHTML = ICON[type] + `<span>${esc(msg)}</span>`;
-  D.toast.className = `toast ${type} show`;
-  toastTimer = setTimeout(() => D.toast.classList.remove('show'), ms);
+  D.toast.innerHTML=IC[type]+`<span>${esc(msg)}</span>`;
+  D.toast.className=`toast ${type} show`;
+  toastTimer=setTimeout(()=>D.toast.classList.remove('show'),ms);
 }
+function setStatus(cls,txt){D.spill.className=`spill ${cls}`;D.stxt.textContent=txt}
 
-// ── STATUS ───────────────────────────────────────────────────
-function setStatus(cls, txt) {
-  D.spill.className = `spill ${cls}`;
-  D.stxt.textContent = txt;
-}
-
-// ── FORM ─────────────────────────────────────────────────────
-function validate() {
-  let ok = true;
-  if (!D.fTitle.value.trim()) {
-    D.eTitle.textContent = 'Title is required';
-    D.fTitle.focus(); ok = false;
-  } else { D.eTitle.textContent = ''; }
-  if (!D.fComp.value.trim()) {
-    D.eComp.textContent = 'Component is required';
-    if (ok) D.fComp.focus(); ok = false;
-  } else { D.eComp.textContent = ''; }
+function validate(){
+  let ok=true;
+  if(!D.fTitle.value.trim()){D.eTitle.textContent='Title is required';D.fTitle.focus();ok=false}else{D.eTitle.textContent=''}
+  if(!D.fComp.value.trim()){D.eComp.textContent='Component is required';if(ok)D.fComp.focus();ok=false}else{D.eComp.textContent=''}
   return ok;
 }
-
-function resetForm() {
-  D.form.reset(); D.editId.value = '';
-  D.eTitle.textContent = ''; D.eComp.textContent = '';
-  D.subLbl.textContent = 'Log Incident';
-  D.cancelBtn.style.display = 'none';
+function resetForm(){
+  D.form.reset();D.editId.value='';
+  D.eTitle.textContent='';D.eComp.textContent='';
+  D.subLbl.textContent='Log Incident';D.cancelBtn.style.display='none';
+}
+function fillForm(row){
+  D.fTitle.value=row.title||'';D.fComp.value=row.component_failed||'';
+  D.fCasc.value=row.cascade_explanation||'';D.fFeed.value=row.feedback_loops||'';
+  D.fPrev.value=row.preventive_measures||'';D.fTags.value=(row.tags||[]).join(', ');
+  D.fAuth.value=row.created_by||'';D.editId.value=row.id;
+  D.subLbl.textContent='Update Incident';D.cancelBtn.style.display='inline-flex';
+  D.fTitle.scrollIntoView({behavior:'smooth',block:'nearest'});
+  setTimeout(()=>D.fTitle.focus(),80);
 }
 
-function fillForm(row) {
-  D.fTitle.value = row.title || '';
-  D.fComp.value  = row.component_failed || '';
-  D.fCasc.value  = row.cascade_explanation || '';
-  D.fFeed.value  = row.feedback_loops || '';
-  D.fPrev.value  = row.preventive_measures || '';
-  D.fTags.value  = (row.tags || []).join(', ');
-  D.fAuth.value  = row.created_by || '';
-  D.editId.value = row.id;
-  D.subLbl.textContent = 'Update Incident';
-  D.cancelBtn.style.display = 'inline-flex';
-  D.fTitle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  setTimeout(() => D.fTitle.focus(), 80);
-}
-
-D.form.addEventListener('submit', async e => {
-  e.preventDefault();
-  if (!validate()) return;
-  const tags = D.fTags.value.split(',').map(t => t.trim()).filter(Boolean);
-  const data = {
-    title: D.fTitle.value.trim(), comp: D.fComp.value.trim(),
-    casc:  D.fCasc.value.trim(),  feed: D.fFeed.value.trim(),
-    prev:  D.fPrev.value.trim(),  tags, auth: D.fAuth.value.trim(),
-  };
-  D.subBtn.disabled = true;
-  try {
-    if (D.editId.value) {
-      await db.update(parseInt(D.editId.value, 10), data);
-      toast('Incident updated successfully', 'ok');
-    } else {
-      await db.create(data);
-      toast('Incident logged successfully', 'ok');
-    }
-    resetForm();
-    await loadRender();
-  } catch (err) {
-    toast(err.message, 'err', 8000);
-  } finally {
-    D.subBtn.disabled = false;
-  }
+D.form.addEventListener('submit',async e=>{
+  e.preventDefault();if(!validate())return;
+  const tags=D.fTags.value.split(',').map(t=>t.trim()).filter(Boolean);
+  const data={title:D.fTitle.value.trim(),comp:D.fComp.value.trim(),
+    casc:D.fCasc.value.trim(),feed:D.fFeed.value.trim(),
+    prev:D.fPrev.value.trim(),tags,auth:D.fAuth.value.trim()};
+  D.subBtn.disabled=true;
+  try{
+    if(D.editId.value){await db.update(parseInt(D.editId.value,10),data);toast('Incident updated successfully','ok')}
+    else{await db.create(data);toast('Incident logged successfully','ok')}
+    resetForm();await loadRender();
+  }catch(err){toast(err.message,'err',8000)}
+  finally{D.subBtn.disabled=false}
 });
+D.cancelBtn.addEventListener('click',()=>{resetForm();toast('Edit cancelled','inf',2000)});
 
-D.cancelBtn.addEventListener('click', () => { resetForm(); toast('Edit cancelled', 'inf', 2000); });
-
-// ── FILTER ───────────────────────────────────────────────────
-function applyFilter() {
-  const q   = D.srchIn.value.toLowerCase().trim();
-  const tag = D.tagSel.value.toLowerCase();
-  const f = rows.filter(r => {
-    const mq  = !q   || r.title.toLowerCase().includes(q) || r.component_failed.toLowerCase().includes(q);
-    const mt  = !tag || (r.tags || []).map(t => t.toLowerCase()).includes(tag);
-    return mq && mt;
+function applyFilter(){
+  const q=D.srchIn.value.toLowerCase().trim();
+  const tag=D.tagSel.value.toLowerCase();
+  const f=rows.filter(r=>{
+    const mq=!q||r.title.toLowerCase().includes(q)||r.component_failed.toLowerCase().includes(q);
+    const mt=!tag||(r.tags||[]).map(t=>t.toLowerCase()).includes(tag);
+    return mq&&mt;
   });
   renderList(f);
 }
+D.srchIn.addEventListener('input',applyFilter);
+D.tagSel.addEventListener('change',applyFilter);
+D.refBtn.addEventListener('click',async()=>{D.refBtn.disabled=true;await loadRender();D.refBtn.disabled=false});
 
-D.srchIn.addEventListener('input', applyFilter);
-D.tagSel.addEventListener('change', applyFilter);
-D.refBtn.addEventListener('click', async () => {
-  D.refBtn.disabled = true;
-  await loadRender();
-  D.refBtn.disabled = false;
-});
-
-function buildTagSel(data) {
-  const all = [...new Set(data.flatMap(r => r.tags || []))].sort();
-  const cur = D.tagSel.value;
-  D.tagSel.innerHTML = '<option value="">All Tags</option>';
-  all.forEach(t => {
-    const o = document.createElement('option');
-    o.value = t; o.textContent = t;
-    if (t === cur) o.selected = true;
-    D.tagSel.appendChild(o);
-  });
+function buildTagSel(data){
+  const all=[...new Set(data.flatMap(r=>r.tags||[]))].sort();
+  const cur=D.tagSel.value;
+  D.tagSel.innerHTML='<option value="">All Tags</option>';
+  all.forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;if(t===cur)o.selected=true;D.tagSel.appendChild(o)});
 }
 
-// ── RENDER ───────────────────────────────────────────────────
-const SV = {
-  layers: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
-  clock:  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-  user:   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
-  chev:   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`,
-  edit:   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
-  trash:  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`,
+const SV={
+  layers:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+  clock:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  user:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  chev:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`,
+  edit:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
+  trash:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`,
 };
 
-function renderList(data) {
-  D.stLoad.style.display = 'none';
-  if (!data.length) {
-    D.stEmpty.style.display = '';
-    D.list.innerHTML = '';
-    return;
-  }
-  D.stEmpty.style.display = 'none';
-  D.list.innerHTML = data.map(row => {
-    const tags = row.tags || [];
-    const tagHtml = tags.map((t, i) =>
-      `<span class="tg tg${i % 5}" data-action="filter" data-tag="${esc(t)}">${esc(t)}</span>`
-    ).join('');
+function renderList(data){
+  D.stLoad.style.display='none';
+  if(!data.length){D.stEmpty.style.display='';D.list.innerHTML='';return}
+  D.stEmpty.style.display='none';
+  D.list.innerHTML=data.map(row=>{
+    const tags=row.tags||[];
+    const tagHtml=tags.map((t,i)=>`<span class="tg tg${i%5}" data-action="filter" data-tag="${esc(t)}">${esc(t)}</span>`).join('');
     return `
     <div class="card" data-id="${row.id}">
       <div class="ctop" data-action="view">
-        <div class="cid">#${String(row.id).padStart(3, '0')}</div>
+        <div class="cid">#${String(row.id).padStart(3,'0')}</div>
         <div class="cbdy">
           <div class="ctitl">${esc(row.title)}</div>
           <div class="cmeta">
             <span class="ccomp">${SV.layers}${esc(row.component_failed)}</span>
             <span class="ctim">${SV.clock}${relTime(row.timestamp)}</span>
-            ${row.created_by ? `<span class="cath">${SV.user}${esc(row.created_by)}</span>` : ''}
+            ${row.created_by?`<span class="cath">${SV.user}${esc(row.created_by)}</span>`:''}
           </div>
         </div>
         <div class="cchev" style="width:14px;height:14px">${SV.chev}</div>
@@ -909,132 +521,74 @@ function renderList(data) {
   }).join('');
 }
 
-D.list.addEventListener('click', e => {
-  const target = e.target.closest('[data-action]');
-  if (!target) return;
-  const card = e.target.closest('.card');
-  if (!card) return;
-  const row = rows.find(r => r.id === parseInt(card.dataset.id, 10));
-  if (!row) return;
-  const action = target.dataset.action;
-  if (action === 'view')   openDetail(row);
-  if (action === 'edit')   { e.stopPropagation(); fillForm(row); closeDetail(); }
-  if (action === 'delete') { e.stopPropagation(); startDel(row.id); }
-  if (action === 'filter') {
-    e.stopPropagation();
-    D.tagSel.value = target.dataset.tag;
-    applyFilter();
-    toast(`Filtered by: ${target.dataset.tag}`, 'inf', 2000);
-  }
+D.list.addEventListener('click',e=>{
+  const target=e.target.closest('[data-action]');if(!target)return;
+  const card=e.target.closest('.card');if(!card)return;
+  const row=rows.find(r=>r.id===parseInt(card.dataset.id,10));if(!row)return;
+  const a=target.dataset.action;
+  if(a==='view')openDetail(row);
+  if(a==='edit'){e.stopPropagation();fillForm(row);closeDetail()}
+  if(a==='delete'){e.stopPropagation();startDel(row.id)}
+  if(a==='filter'){e.stopPropagation();D.tagSel.value=target.dataset.tag;applyFilter();toast(`Filtered by: ${target.dataset.tag}`,'inf',2000)}
 });
 
-// ── DETAIL MODAL ─────────────────────────────────────────────
-function openDetail(row) {
-  activeRow = row;
-  D.mTitle.textContent = row.title;
-  D.mComp.innerHTML = `${SV.layers}${esc(row.component_failed)}`;
-  const secs = [
-    ['Cascade Explanation',  row.cascade_explanation],
-    ['Feedback Loops',       row.feedback_loops],
-    ['Preventive Measures',  row.preventive_measures],
-  ].filter(([, v]) => v);
-  let html = secs.map(([l, v]) =>
-    `<div class="msec"><div class="mlbl">${l}</div><div class="mval">${esc(v)}</div></div><div class="mdiv"></div>`
-  ).join('');
-  if (row.tags && row.tags.length) {
-    html += `<div class="msec"><div class="mlbl">Tags</div>
-      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px">
-        ${row.tags.map((t, i) => `<span class="tg tg${i%5}">${esc(t)}</span>`).join('')}
-      </div></div>`;
-  }
-  D.mBody.innerHTML = html || '<p style="color:var(--t3);font-size:13px">No additional details recorded.</p>';
-  D.mMeta.textContent = `Logged ${fullTime(row.timestamp)}${row.created_by ? ' · ' + row.created_by : ''}`;
-  D.detOv.style.display = 'flex';
+function openDetail(row){
+  activeRow=row;
+  D.mTitle.textContent=row.title;
+  D.mComp.innerHTML=`${SV.layers}${esc(row.component_failed)}`;
+  const secs=[['Cascade Explanation',row.cascade_explanation],['Feedback Loops',row.feedback_loops],['Preventive Measures',row.preventive_measures]].filter(([,v])=>v);
+  let html=secs.map(([l,v])=>`<div class="msec"><div class="mlbl">${l}</div><div class="mval">${esc(v)}</div></div><div class="mdiv"></div>`).join('');
+  if(row.tags&&row.tags.length)html+=`<div class="msec"><div class="mlbl">Tags</div><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px">${row.tags.map((t,i)=>`<span class="tg tg${i%5}">${esc(t)}</span>`).join('')}</div></div>`;
+  D.mBody.innerHTML=html||'<p style="color:var(--t3);font-size:13px">No additional details recorded.</p>';
+  D.mMeta.textContent=`Logged ${fullTime(row.timestamp)}${row.created_by?' · '+row.created_by:''}`;
+  D.detOv.style.display='flex';
 }
+function closeDetail(){D.detOv.style.display='none'}
+D.detClose.addEventListener('click',closeDetail);
+D.detOv.addEventListener('click',e=>{if(e.target===D.detOv)closeDetail()});
+D.mEdit.addEventListener('click',()=>{if(activeRow){fillForm(activeRow);closeDetail()}});
+D.mDel.addEventListener('click',()=>{if(activeRow){startDel(activeRow.id);closeDetail()}});
 
-function closeDetail() { D.detOv.style.display = 'none'; }
-D.detClose.addEventListener('click', closeDetail);
-D.detOv.addEventListener('click', e => { if (e.target === D.detOv) closeDetail(); });
-D.mEdit.addEventListener('click', () => { if (activeRow) { fillForm(activeRow); closeDetail(); } });
-D.mDel.addEventListener('click',  () => { if (activeRow) { startDel(activeRow.id); closeDetail(); } });
-
-// ── DELETE ───────────────────────────────────────────────────
-function startDel(id) { delPend = id; D.confOv.style.display = 'flex'; }
-function closeDel()   { delPend = null; D.confOv.style.display = 'none'; }
-
-D.confOk.addEventListener('click', async () => {
-  if (!delPend) return;
-  D.confOv.style.display = 'none';
-  try {
-    await db.del(delPend);
-    toast('Incident deleted', 'ok');
-    delPend = null;
-    await loadRender();
-  } catch (err) { toast(err.message, 'err', 7000); }
+function startDel(id){delPend=id;D.confOv.style.display='flex'}
+function closeDel(){delPend=null;D.confOv.style.display='none'}
+D.confOk.addEventListener('click',async()=>{
+  if(!delPend)return;D.confOv.style.display='none';
+  try{await db.del(delPend);toast('Incident deleted','ok');delPend=null;await loadRender()}
+  catch(err){toast(err.message,'err',7000)}
 });
-D.confNo.addEventListener('click', closeDel);
-D.confOv.addEventListener('click', e => { if (e.target === D.confOv) closeDel(); });
+D.confNo.addEventListener('click',closeDel);
+D.confOv.addEventListener('click',e=>{if(e.target===D.confOv)closeDel()});
 
-// ── LOAD & RENDER ────────────────────────────────────────────
-async function loadRender() {
-  rows = await db.all();
-  D.ebadge.textContent = `${rows.length} ${rows.length === 1 ? 'entry' : 'entries'}`;
-  buildTagSel(rows);
-  applyFilter();
+async function loadRender(){
+  rows=await db.all();
+  D.ebadge.textContent=`${rows.length} ${rows.length===1?'entry':'entries'}`;
+  buildTagSel(rows);applyFilter();
 }
 
-// ── INIT ─────────────────────────────────────────────────────
-async function init() {
-  setStatus('', 'Connecting…');
-  D.stLoad.style.display  = '';
-  D.stEmpty.style.display = 'none';
-  D.list.innerHTML        = '';
-
-  try {
-    await ensureSchema();   // CREATE TABLE IF NOT EXISTS — safe every time
+async function init(){
+  setStatus('','Connecting…');
+  D.stLoad.style.display='';D.stEmpty.style.display='none';D.list.innerHTML='';
+  try{
+    await ensureSchema();
     await loadRender();
-    setStatus('ok', 'Connected');
-    toast('Connected to Neon', 'ok', 2500);
-  } catch (err) {
-    console.error('[Init]', err);
-    setStatus('err', 'Connection failed');
-    D.stLoad.style.display  = 'none';
-    D.stEmpty.style.display = '';
-    D.stEmpty.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--bd2)">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-      </svg>
+    setStatus('ok','Connected');
+    toast('Connected to Neon','ok',2500);
+  }catch(err){
+    console.error('[Init]',err);
+    setStatus('err','Connection failed');
+    D.stLoad.style.display='none';D.stEmpty.style.display='';
+    D.stEmpty.innerHTML=`
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--bd2)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       <div class="et">Connection failed</div>
       <div class="es" style="max-width:320px;word-break:break-word">${esc(err.message)}</div>
       <button class="btn bs sm" style="margin-top:14px" onclick="init()">Retry</button>`;
-    toast(err.message, 'err', 8000);
+    toast(err.message,'err',8000);
   }
 }
 
-// ── UTILS ────────────────────────────────────────────────────
-function esc(s) {
-  if (!s) return '';
-  return String(s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-
-function relTime(ts) {
-  if (!ts) return '';
-  const m = Math.floor((Date.now() - new Date(ts)) / 60000);
-  if (m < 1)     return 'just now';
-  if (m < 60)    return `${m}m ago`;
-  if (m < 1440)  return `${Math.floor(m/60)}h ago`;
-  if (m < 10080) return `${Math.floor(m/1440)}d ago`;
-  return new Date(ts).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
-}
-
-function fullTime(ts) {
-  if (!ts) return '';
-  return new Date(ts).toLocaleString('en-GB', {
-    day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'
-  });
-}
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function relTime(ts){if(!ts)return'';const m=Math.floor((Date.now()-new Date(ts))/60000);if(m<1)return'just now';if(m<60)return`${m}m ago`;if(m<1440)return`${Math.floor(m/60)}h ago`;if(m<10080)return`${Math.floor(m/1440)}d ago`;return new Date(ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
+function fullTime(ts){if(!ts)return'';return new Date(ts).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}
 
 init();
 </script>
