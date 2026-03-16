@@ -8,425 +8,448 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
 <style>
-/* ═══════════════════════════════════════════════════════
-   TOKENS
-═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════ */
 :root {
-  --bg:          #F8F8F7;
-  --surf:        #FFFFFF;
-  --surf2:       #F3F3F2;
-  --surf3:       #EBEBEA;
-  --bd:          #E5E5E3;
-  --bd2:         #CACAC6;
+  --bg:      #F8F8F7;
+  --surf:    #FFFFFF;
+  --surf2:   #F3F3F2;
+  --surf3:   #EAEAE8;
+  --bd:      #E5E5E3;
+  --bd2:     #CACAC6;
 
-  --t1:  #111110;
-  --t2:  #6C6C69;
-  --t3:  #A4A4A0;
+  --t1: #111110;
+  --t2: #6C6C69;
+  --t3: #A4A4A0;
 
-  --red:    #C0320A;
-  --red-bg: #FFF1ED;
-  --red-bd: #FAC9A0;
+  --red:    #C0320A; --red-bg:  #FFF1ED; --red-bd:  #FAC9A0;
+  --grn:    #1A7A47; --grn-bg:  #ECFDF4; --grn-bd:  #A6EFC4;
+  --blu:    #1A5EA8; --blu-bg:  #EEF4FF; --blu-bd:  #B5CFFA;
+  --amb:    #7B5000; --amb-bg:  #FFFBEB; --amb-bd:  #F8D98A;
+  --pur:    #6D3EC8; --pur-bg:  #F5F0FF; --pur-bd:  #D3BBFB;
+  --tel:    #0A7EA4; --tel-bg:  #EBF8FF; --tel-bd:  #A5D8F0;
 
-  --grn:    #1A7A47;
-  --grn-bg: #ECFDF4;
-  --grn-bd: #A6EFC4;
+  --mono: 'IBM Plex Mono', monospace;
+  --disp: 'Syne', sans-serif;
+  --body: 'DM Sans', sans-serif;
 
-  --blu:    #1A5EA8;
-  --blu-bg: #EEF4FF;
-  --blu-bd: #B5CFFA;
-
-  --amb:    #7B5000;
-  --amb-bg: #FFFBEB;
-  --amb-bd: #F8D98A;
-
-  --pur:    #6D3EC8;
-  --pur-bg: #F5F0FF;
-  --pur-bd: #D3BBFB;
-
-  --tel:    #0A7EA4;
-  --tel-bg: #EBF8FF;
-  --tel-bd: #A5D8F0;
-
-  --mono:    'IBM Plex Mono', monospace;
-  --disp:    'Syne', sans-serif;
-  --body:    'DM Sans', sans-serif;
-
-  --r:   4px;
-  --r2:  8px;
-  --r3:  12px;
+  --r:  4px; --r2: 8px; --r3: 12px;
   --sh:  0 1px 2px rgba(0,0,0,.05);
   --sh2: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.04);
   --sh3: 0 8px 24px rgba(0,0,0,.09), 0 2px 6px rgba(0,0,0,.05);
   --ease: cubic-bezier(.4,0,.2,1);
-  --t: .15s;
+  --dur: .15s;
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    RESET
-═══════════════════════════════════════════════════════ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-body{background:var(--bg);color:var(--t1);font-family:var(--body);font-size:14px;line-height:1.6;min-height:100vh}
+═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    HEADER
-═══════════════════════════════════════════════════════ */
-.hdr{
-  background:rgba(255,255,255,.9);
-  border-bottom:1px solid var(--bd);
-  position:sticky;top:0;z-index:50;
-  backdrop-filter:blur(10px);
+═══════════════════════════════════════ */
+.hdr {
+  background: rgba(255,255,255,.92);
+  border-bottom: 1px solid var(--bd);
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(10px);
 }
-.hdr-in{
-  max-width:1260px;margin:0 auto;
-  padding:0 24px;height:54px;
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
+.hdr-in {
+  max-width: 1260px; margin: 0 auto;
+  padding: 0 28px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.hdr-l{display:flex;align-items:center;gap:18px}
-.logo{
-  font-family:var(--disp);font-size:14px;font-weight:700;
-  color:var(--t1);letter-spacing:-.02em;
-  display:flex;align-items:center;gap:8px;
+.hdr-l { display: flex; align-items: center; gap: 20px; }
+.brand {
+  font-family: var(--disp); font-size: 14px; font-weight: 700;
+  color: var(--t1); letter-spacing: -.02em;
+  display: flex; align-items: center; gap: 9px;
 }
-.logo-sq{
-  width:26px;height:26px;background:var(--t1);border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
+.brand-mark {
+  width: 28px; height: 28px; background: var(--t1);
+  border-radius: 7px; display: flex; align-items: center; justify-content: center;
 }
-.logo-sq svg{width:14px;height:14px;color:#fff;stroke-width:2.5}
-.vsep{width:1px;height:18px;background:var(--bd)}
-.hdr-sub{font-size:13px;color:var(--t2);font-weight:400}
-.hdr-r{display:flex;align-items:center;gap:10px}
+.brand-mark svg { width: 15px; height: 15px; color: #fff; stroke-width: 2.5; }
+.vsep { width: 1px; height: 18px; background: var(--bd); }
+.hdr-ctx { font-size: 13px; color: var(--t2); }
+.hdr-r { display: flex; align-items: center; gap: 10px; }
 
-/* status pill */
-.spill{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:3px 10px;border-radius:99px;
-  border:1px solid var(--bd);background:var(--surf2);
-  font-family:var(--mono);font-size:11px;color:var(--t2);
-  transition:all var(--t) var(--ease);
+.spill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 11px; border-radius: 99px;
+  border: 1px solid var(--bd); background: var(--surf2);
+  font-family: var(--mono); font-size: 11px; color: var(--t2);
+  transition: all var(--dur) var(--ease);
 }
-.spill.ok  {background:var(--grn-bg);border-color:var(--grn-bd);color:var(--grn)}
-.spill.err {background:var(--red-bg);border-color:var(--red-bd);color:var(--red)}
-.sdot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
-.spill.ok .sdot{animation:blink 2s ease infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
-.ebadge{
-  font-family:var(--mono);font-size:11px;color:var(--t3);
-  background:var(--surf2);border:1px solid var(--bd);
-  padding:3px 10px;border-radius:99px;
+.spill.ok  { background: var(--grn-bg); border-color: var(--grn-bd); color: var(--grn); }
+.spill.err { background: var(--red-bg); border-color: var(--red-bd); color: var(--red); }
+.sdot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor; flex-shrink: 0;
+}
+.spill.ok .sdot { animation: blink 2s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+.ebadge {
+  font-family: var(--mono); font-size: 11px; color: var(--t3);
+  background: var(--surf2); border: 1px solid var(--bd);
+  padding: 4px 11px; border-radius: 99px;
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    TOAST
-═══════════════════════════════════════════════════════ */
-.toast{
-  position:fixed;top:66px;right:20px;z-index:200;
-  display:flex;align-items:center;gap:9px;
-  padding:11px 14px;border-radius:var(--r2);border:1px solid;
-  font-size:13px;font-weight:500;max-width:340px;
-  box-shadow:var(--sh3);
-  opacity:0;transform:translateY(-6px) scale(.97);
-  transition:opacity .2s var(--ease),transform .2s var(--ease);
-  pointer-events:none;
+═══════════════════════════════════════ */
+.toast {
+  position: fixed; top: 68px; right: 22px; z-index: 200;
+  display: flex; align-items: center; gap: 9px;
+  padding: 11px 15px; border-radius: var(--r2);
+  border: 1px solid; font-size: 13px; font-weight: 500;
+  max-width: 360px; box-shadow: var(--sh3);
+  opacity: 0; transform: translateY(-6px) scale(.97);
+  transition: opacity .2s var(--ease), transform .2s var(--ease);
+  pointer-events: none;
 }
-.toast.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
-.toast.ok  {background:var(--grn-bg);border-color:var(--grn-bd);color:var(--grn)}
-.toast.err {background:var(--red-bg);border-color:var(--red-bd);color:var(--red)}
-.toast.inf {background:var(--blu-bg);border-color:var(--blu-bd);color:var(--blu)}
-.toast svg{flex-shrink:0;width:15px;height:15px}
+.toast.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.toast.ok   { background: var(--grn-bg); border-color: var(--grn-bd); color: var(--grn); }
+.toast.err  { background: var(--red-bg); border-color: var(--red-bd); color: var(--red); }
+.toast.inf  { background: var(--blu-bg); border-color: var(--blu-bd); color: var(--blu); }
+.toast svg  { flex-shrink: 0; width: 15px; height: 15px; }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    LAYOUT
-═══════════════════════════════════════════════════════ */
-.layout{
-  max-width:1260px;margin:0 auto;padding:22px 24px;
-  display:grid;grid-template-columns:354px 1fr;
-  gap:18px;align-items:start;
+═══════════════════════════════════════ */
+.wrap {
+  max-width: 1260px; margin: 0 auto;
+  padding: 24px 28px;
+  display: grid; grid-template-columns: 360px 1fr;
+  gap: 20px; align-items: start;
 }
-@media(max-width:900px){
-  .layout{grid-template-columns:1fr;padding:14px}
-  .fpanel{position:static!important}
+@media (max-width: 960px) {
+  .wrap { grid-template-columns: 1fr; padding: 16px; }
+  .fpanel { position: static !important; }
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    PANELS
-═══════════════════════════════════════════════════════ */
-.panel{
-  background:var(--surf);border:1px solid var(--bd);
-  border-radius:var(--r3);box-shadow:var(--sh);overflow:hidden;
+═══════════════════════════════════════ */
+.panel {
+  background: var(--surf);
+  border: 1px solid var(--bd);
+  border-radius: var(--r3);
+  box-shadow: var(--sh);
+  overflow: hidden;
 }
-.phd{
-  padding:13px 18px;border-bottom:1px solid var(--bd);
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
+.phd {
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--bd);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
-.ptitle{
-  font-family:var(--disp);font-size:11px;font-weight:700;
-  color:var(--t2);letter-spacing:.06em;text-transform:uppercase;
-  display:flex;align-items:center;gap:7px;
+.ptitle {
+  font-family: var(--disp); font-size: 11px; font-weight: 700;
+  color: var(--t2); letter-spacing: .06em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 7px;
 }
-.ptitle svg{color:var(--t3);width:13px;height:13px}
-.pbd{padding:18px}
+.ptitle svg { color: var(--t3); width: 13px; height: 13px; }
+.pbd { padding: 20px; }
 
-@media(min-width:900px){
-  .fpanel{position:sticky;top:66px;max-height:calc(100vh - 86px);overflow-y:auto}
+@media (min-width: 960px) {
+  .fpanel {
+    position: sticky;
+    top: 68px;
+    max-height: calc(100vh - 88px);
+    overflow-y: auto;
+  }
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    FORM
-═══════════════════════════════════════════════════════ */
-.fld{margin-bottom:13px}
-label{
-  display:block;font-size:11px;font-weight:600;
-  color:var(--t2);margin-bottom:5px;
-  letter-spacing:.04em;text-transform:uppercase;
+═══════════════════════════════════════ */
+.fld { margin-bottom: 14px; }
+
+label {
+  display: block; font-size: 11px; font-weight: 600;
+  color: var(--t2); margin-bottom: 5px;
+  letter-spacing: .04em; text-transform: uppercase;
 }
-label .req{color:var(--red);margin-left:1px}
-label .opt{font-weight:400;text-transform:none;color:var(--t3);letter-spacing:0}
-input[type=text],textarea,select{
-  width:100%;background:var(--surf);
-  border:1px solid var(--bd);border-radius:var(--r);
-  color:var(--t1);font-family:var(--body);font-size:13px;
-  padding:8px 10px;outline:none;
-  transition:border-color var(--t) var(--ease),box-shadow var(--t) var(--ease);
-  resize:vertical;-webkit-appearance:none;
+label .req { color: var(--red); margin-left: 1px; }
+label .opt { font-weight: 400; text-transform: none; color: var(--t3); letter-spacing: 0; }
+
+input[type=text], textarea, select {
+  width: 100%; background: var(--surf);
+  border: 1px solid var(--bd); border-radius: var(--r);
+  color: var(--t1); font-family: var(--body); font-size: 13px;
+  padding: 8px 10px; outline: none;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  resize: vertical; -webkit-appearance: none;
 }
-input[type=text]:hover,textarea:hover{border-color:var(--bd2)}
-input[type=text]:focus,textarea:focus,select:focus{
-  border-color:var(--t1);box-shadow:0 0 0 3px rgba(17,17,16,.06);
+input[type=text]:hover, textarea:hover { border-color: var(--bd2); }
+input[type=text]:focus, textarea:focus, select:focus {
+  border-color: var(--t1);
+  box-shadow: 0 0 0 3px rgba(17,17,16,.06);
 }
-input::placeholder,textarea::placeholder{color:var(--t3);font-weight:300}
-.ferr{font-size:11px;color:var(--red);margin-top:3px;min-height:16px}
-.fft{
-  display:flex;gap:8px;
-  margin-top:18px;padding-top:18px;border-top:1px solid var(--bd);
+input::placeholder, textarea::placeholder { color: var(--t3); font-weight: 300; }
+
+.ferr { font-size: 11px; color: var(--red); margin-top: 3px; min-height: 16px; }
+
+.fft {
+  display: flex; gap: 8px;
+  margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid var(--bd);
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    BUTTONS
-═══════════════════════════════════════════════════════ */
-.btn{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:8px 14px;font-family:var(--body);font-size:13px;
-  font-weight:500;border-radius:var(--r);border:1px solid transparent;
-  cursor:pointer;transition:all var(--t) var(--ease);
-  white-space:nowrap;user-select:none;line-height:1;
+═══════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; font-family: var(--body);
+  font-size: 13px; font-weight: 500;
+  border-radius: var(--r); border: 1px solid transparent;
+  cursor: pointer; transition: all var(--dur) var(--ease);
+  white-space: nowrap; user-select: none; line-height: 1;
 }
-.btn svg{flex-shrink:0;width:13px;height:13px}
-.bp{background:var(--t1);color:#fff;border-color:var(--t1)}
-.bp:hover{background:#2c2c2a;border-color:#2c2c2a;box-shadow:0 1px 4px rgba(0,0,0,.18)}
-.bp:active{transform:scale(.98)}
-.bs{background:var(--surf);color:var(--t1);border-color:var(--bd)}
-.bs:hover{border-color:var(--bd2);background:var(--surf2)}
-.bg{background:transparent;color:var(--t2);border-color:transparent}
-.bg:hover{background:var(--surf2);color:var(--t1)}
-.bd-btn{background:var(--red-bg);color:var(--red);border-color:var(--red-bd)}
-.bd-btn:hover{background:#fbd5c2;border-color:var(--red)}
-.sm{padding:5px 9px;font-size:12px}
-.sm svg{width:12px;height:12px}
-.btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+.btn svg { flex-shrink: 0; width: 13px; height: 13px; }
 
-/* ═══════════════════════════════════════════════════════
+.bp { background: var(--t1); color: #fff; border-color: var(--t1); }
+.bp:hover { background: #2c2c2a; border-color: #2c2c2a; box-shadow: 0 1px 4px rgba(0,0,0,.18); }
+.bp:active { transform: scale(.98); }
+
+.bs { background: var(--surf); color: var(--t1); border-color: var(--bd); }
+.bs:hover { border-color: var(--bd2); background: var(--surf2); }
+
+.bg { background: transparent; color: var(--t2); border-color: transparent; }
+.bg:hover { background: var(--surf2); color: var(--t1); }
+
+.bd-btn { background: var(--red-bg); color: var(--red); border-color: var(--red-bd); }
+.bd-btn:hover { background: #fbd5c2; border-color: var(--red); }
+
+.sm { padding: 5px 9px; font-size: 12px; }
+.sm svg { width: 12px; height: 12px; }
+.btn:disabled { opacity: .4; cursor: not-allowed; pointer-events: none; }
+
+/* ═══════════════════════════════════════
    JOURNAL CONTROLS
-═══════════════════════════════════════════════════════ */
-.ctrl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.srch{position:relative}
-.srch svg{
-  position:absolute;left:9px;top:50%;transform:translateY(-50%);
-  color:var(--t3);pointer-events:none;width:13px;height:13px;
+═══════════════════════════════════════ */
+.ctrl { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.srch { position: relative; }
+.srch svg {
+  position: absolute; left: 9px; top: 50%;
+  transform: translateY(-50%); color: var(--t3);
+  pointer-events: none; width: 13px; height: 13px;
 }
-.si{
-  padding-left:28px!important;width:185px!important;
-  padding-top:6px!important;padding-bottom:6px!important;
-  font-size:13px!important;resize:none!important;
+.si {
+  padding-left: 29px !important; width: 190px !important;
+  padding-top: 6px !important; padding-bottom: 6px !important;
+  font-size: 13px !important; resize: none !important;
 }
-.ts{
-  width:125px!important;padding:6px 26px 6px 9px!important;
-  font-size:12px!important;font-family:var(--mono)!important;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A4A4A0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 7px center;cursor:pointer;
+.ts {
+  width: 130px !important; padding: 6px 26px 6px 9px !important;
+  font-size: 12px !important; font-family: var(--mono) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A4A4A0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 7px center; cursor: pointer;
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    STATES
-═══════════════════════════════════════════════════════ */
-.st-load,.st-empty{
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:10px;
-  padding:60px 20px;color:var(--t3);font-size:13px;text-align:center;
+═══════════════════════════════════════ */
+.st-load, .st-empty {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 10px;
+  padding: 64px 20px; color: var(--t3); font-size: 13px; text-align: center;
 }
-.spin{
-  width:20px;height:20px;
-  border:2px solid var(--bd);border-top-color:var(--t1);
-  border-radius:50%;animation:spin .7s linear infinite;
+.spin {
+  width: 20px; height: 20px;
+  border: 2px solid var(--bd); border-top-color: var(--t1);
+  border-radius: 50%; animation: spin .7s linear infinite;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
-.st-empty svg{color:var(--bd2)}
-.et{font-weight:500;color:var(--t2);font-size:14px}
-.es{font-size:12px}
+@keyframes spin { to { transform: rotate(360deg); } }
+.st-empty svg { color: var(--bd2); }
+.et { font-weight: 500; color: var(--t2); font-size: 14px; }
+.es { font-size: 12px; }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    CARDS
-═══════════════════════════════════════════════════════ */
-.card{
-  border:1px solid var(--bd);border-radius:var(--r2);
-  background:var(--surf);margin-bottom:8px;overflow:hidden;
-  transition:border-color var(--t) var(--ease),box-shadow var(--t) var(--ease),transform var(--t) var(--ease);
-  animation:ci .2s var(--ease);
+═══════════════════════════════════════ */
+.card {
+  border: 1px solid var(--bd); border-radius: var(--r2);
+  background: var(--surf); margin-bottom: 8px; overflow: hidden;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  animation: ci .22s var(--ease);
 }
-@keyframes ci{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-.card:hover{border-color:var(--bd2);box-shadow:var(--sh2);transform:translateY(-1px)}
-.ctop{
-  padding:13px 15px;cursor:pointer;
-  display:flex;gap:10px;align-items:flex-start;
-}
-.cid{font-family:var(--mono);font-size:10px;color:var(--t3);padding-top:3px;min-width:32px;flex-shrink:0}
-.cbdy{flex:1;min-width:0}
-.ctitl{
-  font-family:var(--disp);font-size:14px;font-weight:700;
-  color:var(--t1);letter-spacing:-.01em;margin-bottom:5px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.cmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.ccomp{
-  display:inline-flex;align-items:center;gap:4px;
-  font-family:var(--mono);font-size:11px;color:var(--red);
-  background:var(--red-bg);border:1px solid var(--red-bd);
-  padding:2px 7px;border-radius:3px;font-weight:500;
-}
-.ccomp svg{width:9px;height:9px}
-.ctim,.cath{font-size:11px;color:var(--t3);display:inline-flex;align-items:center;gap:3px}
-.ctim svg,.cath svg{width:11px;height:11px}
-.cchev{color:var(--t3);flex-shrink:0;margin-top:2px;transition:transform var(--t) var(--ease)}
-.card:hover .cchev{transform:translateX(2px);color:var(--t2)}
-.cbot{
-  padding:0 15px 11px 57px;
-  display:flex;align-items:center;justify-content:space-between;gap:8px;
-}
-.ctags{display:flex;flex-wrap:wrap;gap:4px}
-.tg{
-  font-family:var(--mono);font-size:10px;font-weight:500;
-  padding:2px 7px;border-radius:3px;border:1px solid;
-  cursor:pointer;letter-spacing:.01em;
-  transition:opacity var(--t) var(--ease);
-}
-.tg:hover{opacity:.65}
-.tg0{color:var(--blu);border-color:var(--blu-bd);background:var(--blu-bg)}
-.tg1{color:var(--grn);border-color:var(--grn-bd);background:var(--grn-bg)}
-.tg2{color:var(--amb);border-color:var(--amb-bd);background:var(--amb-bg)}
-.tg3{color:var(--pur);border-color:var(--pur-bd);background:var(--pur-bg)}
-.tg4{color:var(--tel);border-color:var(--tel-bd);background:var(--tel-bg)}
-.cacts{display:flex;gap:4px;opacity:0;transition:opacity var(--t) var(--ease)}
-.card:hover .cacts{opacity:1}
+@keyframes ci { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+.card:hover { border-color: var(--bd2); box-shadow: var(--sh2); transform: translateY(-1px); }
 
-/* ═══════════════════════════════════════════════════════
+.ctop { padding: 14px 16px; cursor: pointer; display: flex; gap: 11px; align-items: flex-start; }
+.cid  { font-family: var(--mono); font-size: 10px; color: var(--t3); padding-top: 3px; min-width: 34px; flex-shrink: 0; }
+.cbdy { flex: 1; min-width: 0; }
+
+.ctitl {
+  font-family: var(--disp); font-size: 14px; font-weight: 700;
+  color: var(--t1); letter-spacing: -.01em; margin-bottom: 5px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cmeta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.ccomp {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--red);
+  background: var(--red-bg); border: 1px solid var(--red-bd);
+  padding: 2px 7px; border-radius: 3px; font-weight: 500;
+}
+.ccomp svg { width: 9px; height: 9px; }
+
+.ctim, .cath {
+  font-size: 11px; color: var(--t3);
+  display: inline-flex; align-items: center; gap: 3px;
+}
+.ctim svg, .cath svg { width: 11px; height: 11px; }
+
+.cchev { color: var(--t3); flex-shrink: 0; margin-top: 2px; transition: transform var(--dur) var(--ease); }
+.card:hover .cchev { transform: translateX(2px); color: var(--t2); }
+
+.cbot { padding: 0 16px 12px 61px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ctags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.tg {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  padding: 2px 7px; border-radius: 3px; border: 1px solid;
+  cursor: pointer; letter-spacing: .01em;
+  transition: opacity var(--dur) var(--ease);
+}
+.tg:hover { opacity: .65; }
+.tg0 { color: var(--blu); border-color: var(--blu-bd); background: var(--blu-bg); }
+.tg1 { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.tg2 { color: var(--amb); border-color: var(--amb-bd); background: var(--amb-bg); }
+.tg3 { color: var(--pur); border-color: var(--pur-bd); background: var(--pur-bg); }
+.tg4 { color: var(--tel); border-color: var(--tel-bd); background: var(--tel-bg); }
+
+.cacts { display: flex; gap: 4px; opacity: 0; transition: opacity var(--dur) var(--ease); }
+.card:hover .cacts { opacity: 1; }
+
+/* ═══════════════════════════════════════
    MODALS
-═══════════════════════════════════════════════════════ */
-.ov{
-  position:fixed;inset:0;background:rgba(17,17,16,.45);
-  z-index:300;display:flex;align-items:center;
-  justify-content:center;padding:20px;
-  backdrop-filter:blur(3px);animation:fo .18s var(--ease);
+═══════════════════════════════════════ */
+.ov {
+  position: fixed; inset: 0;
+  background: rgba(17,17,16,.45);
+  z-index: 300; display: flex; align-items: center;
+  justify-content: center; padding: 20px;
+  backdrop-filter: blur(3px);
+  animation: fo .18s var(--ease);
 }
-@keyframes fo{from{opacity:0}to{opacity:1}}
-.modal{
-  background:var(--surf);border:1px solid var(--bd);
-  border-radius:var(--r3);box-shadow:var(--sh3);
-  max-width:660px;width:100%;max-height:86vh;
-  overflow-y:auto;position:relative;
-  animation:mo .2s var(--ease);
+@keyframes fo { from{opacity:0} to{opacity:1} }
+
+.modal {
+  background: var(--surf); border: 1px solid var(--bd);
+  border-radius: var(--r3); box-shadow: var(--sh3);
+  max-width: 660px; width: 100%; max-height: 86vh;
+  overflow-y: auto; position: relative;
+  animation: mo .2s var(--ease);
 }
-.msm{max-width:400px}
-@keyframes mo{from{transform:translateY(-14px);opacity:0}to{transform:translateY(0);opacity:1}}
-.mhd{
-  padding:20px 20px 16px;border-bottom:1px solid var(--bd);
-  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+.msm { max-width: 400px; }
+@keyframes mo { from{transform:translateY(-14px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+.mhd {
+  padding: 20px 20px 16px; border-bottom: 1px solid var(--bd);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
 }
-.mtitl{
-  font-family:var(--disp);font-size:17px;font-weight:700;
-  color:var(--t1);letter-spacing:-.02em;line-height:1.3;
+.mtitl {
+  font-family: var(--disp); font-size: 18px; font-weight: 700;
+  color: var(--t1); letter-spacing: -.02em; line-height: 1.3;
 }
-.msub{
-  margin-top:6px;display:inline-flex;align-items:center;gap:4px;
-  font-family:var(--mono);font-size:11px;color:var(--red);
-  background:var(--red-bg);border:1px solid var(--red-bd);
-  padding:2px 8px;border-radius:3px;
+.msub {
+  margin-top: 6px; display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--red);
+  background: var(--red-bg); border: 1px solid var(--red-bd);
+  padding: 2px 8px; border-radius: 3px;
 }
-.msub svg{width:9px;height:9px}
-.mcls{
-  width:28px;height:28px;border-radius:var(--r);
-  border:1px solid var(--bd);background:transparent;
-  color:var(--t2);cursor:pointer;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:all var(--t) var(--ease);
+.msub svg { width: 9px; height: 9px; }
+
+.mcls {
+  width: 28px; height: 28px; border-radius: var(--r);
+  border: 1px solid var(--bd); background: transparent;
+  color: var(--t2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: all var(--dur) var(--ease);
 }
-.mcls:hover{background:var(--surf2);border-color:var(--bd2);color:var(--t1)}
-.mcls svg{width:14px;height:14px}
-.mbd{padding:20px}
-.msec{margin-bottom:16px}
-.mlbl{
-  font-size:11px;font-weight:600;color:var(--t3);
-  text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;
+.mcls:hover { background: var(--surf2); border-color: var(--bd2); color: var(--t1); }
+.mcls svg { width: 14px; height: 14px; }
+
+.mbd { padding: 20px; }
+.msec { margin-bottom: 16px; }
+.mlbl { font-size: 11px; font-weight: 600; color: var(--t3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
+.mval { font-size: 13.5px; color: var(--t1); line-height: 1.75; white-space: pre-wrap; }
+.mdiv { height: 1px; background: var(--bd); margin: 14px 0; }
+
+.mft {
+  padding: 13px 20px; border-top: 1px solid var(--bd);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--surf2);
 }
-.mval{font-size:13.5px;color:var(--t1);line-height:1.7;white-space:pre-wrap}
-.mdiv{height:1px;background:var(--bd);margin:14px 0}
-.mft{
-  padding:13px 20px;border-top:1px solid var(--bd);
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  background:var(--surf2);
-}
-.mmeta{font-family:var(--mono);font-size:11px;color:var(--t3)}
+.mmeta { font-family: var(--mono); font-size: 11px; color: var(--t3); }
 
 /* confirm */
-.confbd{padding:28px 24px;text-align:center}
-.confic{
-  width:44px;height:44px;border-radius:50%;
-  background:var(--red-bg);border:1px solid var(--red-bd);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 14px;
+.confbd { padding: 32px 28px; text-align: center; }
+.confic {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--red-bg); border: 1px solid var(--red-bd);
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
 }
-.confic svg{color:var(--red);width:20px;height:20px}
-.conft{font-family:var(--disp);font-size:15px;font-weight:700;color:var(--t1);margin-bottom:5px}
-.confs{font-size:13px;color:var(--t2);margin-bottom:22px}
-.confac{display:flex;gap:8px;justify-content:center}
+.confic svg { color: var(--red); width: 20px; height: 20px; }
+.conft { font-family: var(--disp); font-size: 16px; font-weight: 700; color: var(--t1); margin-bottom: 6px; }
+.confs { font-size: 13px; color: var(--t2); margin-bottom: 24px; }
+.confac { display: flex; gap: 8px; justify-content: center; }
 
 /* scrollbar */
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:99px}
-::-webkit-scrollbar-thumb:hover{background:var(--t3)}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bd2); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--t3); }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ═══════════ HEADER ═══════════ -->
 <header class="hdr">
   <div class="hdr-in">
     <div class="hdr-l">
-      <div class="logo">
-        <div class="logo-sq">
-          <!-- Zap icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <div class="brand">
+        <div class="brand-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
         </div>
         Failure Journal
       </div>
       <div class="vsep"></div>
-      <div class="hdr-sub">Incident &amp; Cascade Tracker</div>
+      <div class="hdr-ctx">Incident &amp; Cascade Tracker</div>
     </div>
     <div class="hdr-r">
       <div class="spill" id="spill">
         <div class="sdot"></div>
-        <span id="stxt">Connecting</span>
+        <span id="stxt">Connecting…</span>
       </div>
       <div class="ebadge" id="ebadge">— entries</div>
     </div>
   </div>
 </header>
 
-<!-- TOAST -->
+<!-- ═══════════ TOAST ═══════════ -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- LAYOUT -->
-<main class="layout">
+<!-- ═══════════ MAIN LAYOUT ═══════════ -->
+<main class="wrap">
 
   <!-- FORM PANEL -->
   <aside class="panel fpanel">
@@ -480,12 +503,12 @@ input::placeholder,textarea::placeholder{color:var(--t3);font-weight:300}
 
         <div class="fft">
           <button type="submit" class="btn bp" id="subBtn">
-            <!-- send icon -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             <span id="subLbl">Log Incident</span>
           </button>
           <button type="button" class="btn bs" id="cancelBtn" style="display:none">Cancel</button>
         </div>
+
       </form>
     </div>
   </aside>
@@ -511,19 +534,20 @@ input::placeholder,textarea::placeholder{color:var(--t3);font-weight:300}
     <div class="pbd" style="padding:14px">
       <div class="st-load" id="stLoad">
         <div class="spin"></div>
-        <span>Connecting to Neon…</span>
+        <span>Connecting to database…</span>
       </div>
       <div class="st-empty" id="stEmpty" style="display:none">
         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-        <div class="et">No incidents logged</div>
-        <div class="es">System is stable — for now.</div>
+        <div class="et">No incidents logged yet</div>
+        <div class="es">Log your first incident using the form on the left.</div>
       </div>
       <div id="incList"></div>
     </div>
   </section>
+
 </main>
 
-<!-- DETAIL MODAL -->
+<!-- ═══════════ DETAIL MODAL ═══════════ -->
 <div class="ov" id="detOv" style="display:none">
   <div class="modal">
     <div class="mhd">
@@ -552,7 +576,7 @@ input::placeholder,textarea::placeholder{color:var(--t3);font-weight:300}
   </div>
 </div>
 
-<!-- CONFIRM MODAL -->
+<!-- ═══════════ CONFIRM MODAL ═══════════ -->
 <div class="ov" id="confOv" style="display:none">
   <div class="modal msm">
     <div class="confbd">
@@ -572,118 +596,90 @@ input::placeholder,textarea::placeholder{color:var(--t3);font-weight:300}
   </div>
 </div>
 
-<!--
-  ══════════════════════════════════════════════════════════════
-  DATABASE CONNECTION STRATEGY
-  ══════════════════════════════════════════════════════════════
-  Direct TCP Postgres from a browser is impossible (browsers
-  don't speak the Postgres wire protocol).
-
-  The CORRECT approach is Neon's official HTTP SQL API:
-    POST https://<neon-host>/sql
-    Headers: Authorization: Basic <base64(user:pass)>
-             Neon-Connection-String: <full connection string>
-    Body:    { "query": "...", "params": [...] }
-
-  We implement this as a clean raw-fetch layer below.
-  The @neondatabase/serverless npm package does the same thing
-  under the hood but requires a bundler. This is the pure-browser
-  equivalent — same protocol, no build step needed.
-  ══════════════════════════════════════════════════════════════
--->
-
+<!-- ═══════════ APP SCRIPT ═══════════ -->
 <script>
 'use strict';
 
-/* ═══════════════════════════════════════════════════════════════
-   NEON HTTP SQL DRIVER  (pure browser, no npm needed)
-   ═══════════════════════════════════════════════════════════════
-   Neon exposes a lightweight HTTP API at https://<host>/sql
-   that accepts parameterised JSON queries.
+/*
+ * ═══════════════════════════════════════════════════════════════
+ *  HOW THE DATABASE CONNECTION WORKS ON VERCEL
+ * ═══════════════════════════════════════════════════════════════
+ *  When this page is served from https://yourapp.vercel.app,
+ *  the browser sends requests with a real HTTPS origin — not
+ *  "null" like when opening from file://. Neon's CORS policy
+ *  accepts real origins, so direct fetch() calls to the /sql
+ *  HTTP API work without any proxy.
+ *
+ *  Protocol: POST https://<neon-host>/sql
+ *    Headers:
+ *      Authorization:           Basic base64(user:password)
+ *      Neon-Connection-String:  <full connection string>
+ *      Content-Type:            application/json
+ *    Body: { "query": "...", "params": [...] }
+ *
+ *  Response: { "rows": [...], "rowCount": N, "fields": [...] }
+ * ═══════════════════════════════════════════════════════════════
+ */
 
-   Protocol (from Neon docs):
-     POST https://<host>/sql
-     Authorization: Basic base64(username:password)
-     Neon-Connection-String: <full_conn_str>
-     Content-Type: application/json
-     { "query": "<sql>", "params": [...] }
-
-   Response:
-     { "rows": [...], "rowCount": N, "fields": [...] }
-═══════════════════════════════════════════════════════════════ */
-
-const CONNECTION_STRING =
+// ── CONNECTION ───────────────────────────────────────────────
+const CONN =
   'postgresql://neondb_owner:npg_eLT6d5RNUxWy@ep-jolly-wind-amrwqrqo-pooler.c-5.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
 
-/* Parse connection string → { host, user, pass, db } */
-function parseConn(cs) {
-  // Replace postgres/postgresql scheme so URL() can handle it
-  const u = new URL(cs.replace(/^postgres(ql)?:\/\//, 'https://'));
-  return {
-    host: u.hostname,
-    user: decodeURIComponent(u.username),
-    pass: decodeURIComponent(u.password),
-    db:   u.pathname.replace(/^\//, ''),
-  };
+function buildEndpoint(c) {
+  const u = new URL(c.replace(/^postgres(?:ql)?:\/\//, 'https://'));
+  return `https://${u.hostname}/sql`;
 }
 
-const CREDS    = parseConn(CONNECTION_STRING);
-const ENDPOINT = `https://${CREDS.host}/sql`;
-const AUTH     = 'Basic ' + btoa(`${CREDS.user}:${CREDS.pass}`);
+function buildAuth(c) {
+  const u = new URL(c.replace(/^postgres(?:ql)?:\/\//, 'https://'));
+  return 'Basic ' + btoa(`${decodeURIComponent(u.username)}:${decodeURIComponent(u.password)}`);
+}
 
+const ENDPOINT = buildEndpoint(CONN);
+const AUTH     = buildAuth(CONN);
+
+// ── SQL RUNNER ───────────────────────────────────────────────
 /**
- * Execute a parameterised SQL statement via Neon HTTP API.
+ * Execute a parameterised SQL query against Neon's HTTP API.
  *
- * @param {string}   query    Parameterised SQL ($1, $2, ...)
- * @param {Array}    params   Bound parameters (safe from injection)
- * @param {number}   attempt  Internal retry counter
- * @returns {Promise<{rows: Array, rowCount: number}>}
+ * @param {string} query   - SQL with $1/$2 placeholders
+ * @param {Array}  params  - Bound parameter values
+ * @param {number} attempt - Internal retry counter (starts at 1)
  */
-async function sqlQuery(query, params = [], attempt = 1) {
+async function sql(query, params = [], attempt = 1) {
   try {
     const res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: {
-        'Content-Type':            'application/json',
-        'Authorization':           AUTH,
-        'Neon-Connection-String':  CONNECTION_STRING,
+        'Content-Type':           'application/json',
+        'Authorization':          AUTH,
+        'Neon-Connection-String': CONN,
       },
       body: JSON.stringify({ query, params }),
     });
 
-    // Non-2xx → parse Neon's error body for a useful message
     if (!res.ok) {
       let msg = `HTTP ${res.status}`;
-      try {
-        const body = await res.json();
-        msg = body.message || body.error || msg;
-      } catch (_) {}
+      try { const b = await res.json(); msg = b.message || b.error || msg; } catch (_) {}
       throw new Error(msg);
     }
 
     return await res.json();
 
   } catch (err) {
-    // Retry on transient network failures with exponential backoff
-    const isTransient = /failed to fetch|network|timeout|503|502/i.test(err.message);
-    if (attempt <= 3 && isTransient) {
-      const delay = 300 * Math.pow(2, attempt - 1); // 300ms, 600ms, 1200ms
-      console.warn(`[Neon] Retry ${attempt}/3 in ${delay}ms — ${err.message}`);
-      await new Promise(r => setTimeout(r, delay));
-      return sqlQuery(query, params, attempt + 1);
+    // Exponential backoff retry for transient network issues
+    const retryable = /fetch|network|timeout|503|502/i.test(err.message);
+    if (attempt <= 3 && retryable) {
+      await new Promise(r => setTimeout(r, 300 * Math.pow(2, attempt - 1)));
+      return sql(query, params, attempt + 1);
     }
     throw err;
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SCHEMA BOOTSTRAP
-   ═══════════════════════════════════════════════════════════════
-   CREATE TABLE IF NOT EXISTS is idempotent — safe to call on
-   every page load. It's a no-op when the table already exists.
-═══════════════════════════════════════════════════════════════ */
+// ── SCHEMA (auto-created, idempotent) ────────────────────────
 async function ensureSchema() {
-  await sqlQuery(`
+  await sql(`
     CREATE TABLE IF NOT EXISTS failures (
       id                  SERIAL PRIMARY KEY,
       title               TEXT NOT NULL,
@@ -696,150 +692,107 @@ async function ensureSchema() {
       timestamp           TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
   `);
-  console.log('[DB] Schema ready');
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CRUD OPERATIONS
-═══════════════════════════════════════════════════════════════ */
+// ── CRUD ─────────────────────────────────────────────────────
 const db = {
-
-  /** Read: all rows, newest first */
   all: () =>
-    sqlQuery('SELECT * FROM failures ORDER BY timestamp DESC')
+    sql('SELECT * FROM failures ORDER BY timestamp DESC')
       .then(r => r.rows || []),
 
-  /** Create: insert a new incident, return the new row */
-  create: (d) =>
-    sqlQuery(
+  create: d =>
+    sql(
       `INSERT INTO failures
-         (title, component_failed, cascade_explanation,
-          feedback_loops, preventive_measures, tags, created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7)
-       RETURNING *`,
-      [
-        d.title,
-        d.comp,
-        d.casc    || null,
-        d.feed    || null,
-        d.prev    || null,
-        d.tags,            // TEXT[] — pass as JS array, Neon serialises it
-        d.auth    || null,
-      ]
+         (title,component_failed,cascade_explanation,
+          feedback_loops,preventive_measures,tags,created_by)
+       VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`,
+      [d.title, d.comp, d.casc||null, d.feed||null, d.prev||null, d.tags, d.auth||null]
     ).then(r => r.rows[0]),
 
-  /** Update: modify an existing row by id */
   update: (id, d) =>
-    sqlQuery(
+    sql(
       `UPDATE failures
        SET title=$1, component_failed=$2, cascade_explanation=$3,
            feedback_loops=$4, preventive_measures=$5, tags=$6, created_by=$7
-       WHERE id=$8
-       RETURNING *`,
-      [
-        d.title,
-        d.comp,
-        d.casc    || null,
-        d.feed    || null,
-        d.prev    || null,
-        d.tags,
-        d.auth    || null,
-        id,
-      ]
+       WHERE id=$8 RETURNING *`,
+      [d.title, d.comp, d.casc||null, d.feed||null, d.prev||null, d.tags, d.auth||null, id]
     ).then(r => r.rows[0]),
 
-  /** Delete: permanently remove a row */
-  del: (id) =>
-    sqlQuery('DELETE FROM failures WHERE id=$1', [id]),
+  del: id =>
+    sql('DELETE FROM failures WHERE id=$1', [id]),
 };
 
-/* ═══════════════════════════════════════════════════════════════
-   APP STATE
-═══════════════════════════════════════════════════════════════ */
-let rows       = [];   // local cache of all fetched rows
-let activeRow  = null; // row currently shown in detail modal
-let delPending = null; // id queued for deletion
+// ── APP STATE ────────────────────────────────────────────────
+let rows      = [];
+let activeRow = null;
+let delPend   = null;
 
-/* ═══════════════════════════════════════════════════════════════
-   DOM REFS
-═══════════════════════════════════════════════════════════════ */
+// ── DOM ──────────────────────────────────────────────────────
 const g = id => document.getElementById(id);
 const D = {
-  spill: g('spill'), stxt: g('stxt'), ebadge: g('ebadge'),
-  toast: g('toast'),
-  form:  g('incForm'), editId: g('editId'),
+  spill: g('spill'), stxt: g('stxt'), ebadge: g('ebadge'), toast: g('toast'),
+  form: g('incForm'), editId: g('editId'),
   subBtn: g('subBtn'), subLbl: g('subLbl'), cancelBtn: g('cancelBtn'),
   fTitle: g('f_title'), fComp: g('f_comp'), fCasc: g('f_casc'),
-  fFeed:  g('f_feed'),  fPrev: g('f_prev'), fTags: g('f_tags'), fAuth: g('f_auth'),
+  fFeed: g('f_feed'),   fPrev: g('f_prev'), fTags: g('f_tags'), fAuth: g('f_auth'),
   eTitle: g('err_title'), eComp: g('err_comp'),
   srchIn: g('srchIn'), tagSel: g('tagSel'), refBtn: g('refBtn'),
   stLoad: g('stLoad'), stEmpty: g('stEmpty'), list: g('incList'),
-  detOv:  g('detOv'),  detClose: g('detClose'),
+  detOv: g('detOv'), detClose: g('detClose'),
   mTitle: g('mTitle'), mComp: g('mComp'), mBody: g('mBody'), mMeta: g('mMeta'),
-  mEdit:  g('mEdit'),  mDel: g('mDel'),
+  mEdit: g('mEdit'), mDel: g('mDel'),
   confOv: g('confOv'), confOk: g('confOk'), confNo: g('confNo'),
 };
 
-/* ═══════════════════════════════════════════════════════════════
-   TOAST NOTIFICATIONS
-═══════════════════════════════════════════════════════════════ */
-const ICONS = {
-  ok:  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
-  err: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
-  inf: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+// ── TOAST ────────────────────────────────────────────────────
+const ICON = {
+  ok:  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+  err: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  inf: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,
 };
 let toastTimer;
 function toast(msg, type = 'inf', ms = 3500) {
   clearTimeout(toastTimer);
-  D.toast.innerHTML = ICONS[type] + `<span>${esc(msg)}</span>`;
+  D.toast.innerHTML = ICON[type] + `<span>${esc(msg)}</span>`;
   D.toast.className = `toast ${type} show`;
   toastTimer = setTimeout(() => D.toast.classList.remove('show'), ms);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   STATUS INDICATOR
-═══════════════════════════════════════════════════════════════ */
+// ── STATUS ───────────────────────────────────────────────────
 function setStatus(cls, txt) {
   D.spill.className = `spill ${cls}`;
   D.stxt.textContent = txt;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   FORM LOGIC
-═══════════════════════════════════════════════════════════════ */
+// ── FORM ─────────────────────────────────────────────────────
 function validate() {
   let ok = true;
   if (!D.fTitle.value.trim()) {
     D.eTitle.textContent = 'Title is required';
-    D.fTitle.focus();
-    ok = false;
+    D.fTitle.focus(); ok = false;
   } else { D.eTitle.textContent = ''; }
-
   if (!D.fComp.value.trim()) {
     D.eComp.textContent = 'Component is required';
-    if (ok) D.fComp.focus();
-    ok = false;
+    if (ok) D.fComp.focus(); ok = false;
   } else { D.eComp.textContent = ''; }
   return ok;
 }
 
 function resetForm() {
-  D.form.reset();
-  D.editId.value = '';
-  D.eTitle.textContent = '';
-  D.eComp.textContent  = '';
+  D.form.reset(); D.editId.value = '';
+  D.eTitle.textContent = ''; D.eComp.textContent = '';
   D.subLbl.textContent = 'Log Incident';
   D.cancelBtn.style.display = 'none';
 }
 
 function fillForm(row) {
-  D.fTitle.value = row.title                || '';
-  D.fComp.value  = row.component_failed     || '';
-  D.fCasc.value  = row.cascade_explanation  || '';
-  D.fFeed.value  = row.feedback_loops       || '';
-  D.fPrev.value  = row.preventive_measures  || '';
+  D.fTitle.value = row.title || '';
+  D.fComp.value  = row.component_failed || '';
+  D.fCasc.value  = row.cascade_explanation || '';
+  D.fFeed.value  = row.feedback_loops || '';
+  D.fPrev.value  = row.preventive_measures || '';
   D.fTags.value  = (row.tags || []).join(', ');
-  D.fAuth.value  = row.created_by           || '';
+  D.fAuth.value  = row.created_by || '';
   D.editId.value = row.id;
   D.subLbl.textContent = 'Update Incident';
   D.cancelBtn.style.display = 'inline-flex';
@@ -850,18 +803,12 @@ function fillForm(row) {
 D.form.addEventListener('submit', async e => {
   e.preventDefault();
   if (!validate()) return;
-
   const tags = D.fTags.value.split(',').map(t => t.trim()).filter(Boolean);
   const data = {
-    title: D.fTitle.value.trim(),
-    comp:  D.fComp.value.trim(),
-    casc:  D.fCasc.value.trim(),
-    feed:  D.fFeed.value.trim(),
-    prev:  D.fPrev.value.trim(),
-    tags,
-    auth:  D.fAuth.value.trim(),
+    title: D.fTitle.value.trim(), comp: D.fComp.value.trim(),
+    casc:  D.fCasc.value.trim(),  feed: D.fFeed.value.trim(),
+    prev:  D.fPrev.value.trim(),  tags, auth: D.fAuth.value.trim(),
   };
-
   D.subBtn.disabled = true;
   try {
     if (D.editId.value) {
@@ -872,60 +819,50 @@ D.form.addEventListener('submit', async e => {
       toast('Incident logged successfully', 'ok');
     }
     resetForm();
-    await loadAndRender();
+    await loadRender();
   } catch (err) {
-    console.error('[Form]', err);
     toast(err.message, 'err', 8000);
   } finally {
     D.subBtn.disabled = false;
   }
 });
 
-D.cancelBtn.addEventListener('click', () => {
-  resetForm();
-  toast('Edit cancelled', 'inf', 2000);
-});
+D.cancelBtn.addEventListener('click', () => { resetForm(); toast('Edit cancelled', 'inf', 2000); });
 
-/* ═══════════════════════════════════════════════════════════════
-   FILTER & SEARCH  (client-side, no extra DB call)
-═══════════════════════════════════════════════════════════════ */
+// ── FILTER ───────────────────────────────────────────────────
 function applyFilter() {
   const q   = D.srchIn.value.toLowerCase().trim();
   const tag = D.tagSel.value.toLowerCase();
-  const filtered = rows.filter(r => {
+  const f = rows.filter(r => {
     const mq  = !q   || r.title.toLowerCase().includes(q) || r.component_failed.toLowerCase().includes(q);
     const mt  = !tag || (r.tags || []).map(t => t.toLowerCase()).includes(tag);
     return mq && mt;
   });
-  renderList(filtered);
+  renderList(f);
 }
 
 D.srchIn.addEventListener('input', applyFilter);
 D.tagSel.addEventListener('change', applyFilter);
-
 D.refBtn.addEventListener('click', async () => {
   D.refBtn.disabled = true;
-  await loadAndRender();
+  await loadRender();
   D.refBtn.disabled = false;
 });
 
-function buildTagSelect(data) {
+function buildTagSel(data) {
   const all = [...new Set(data.flatMap(r => r.tags || []))].sort();
   const cur = D.tagSel.value;
   D.tagSel.innerHTML = '<option value="">All Tags</option>';
   all.forEach(t => {
     const o = document.createElement('option');
-    o.value = t;
-    o.textContent = t;
+    o.value = t; o.textContent = t;
     if (t === cur) o.selected = true;
     D.tagSel.appendChild(o);
   });
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RENDER CARDS
-═══════════════════════════════════════════════════════════════ */
-const SVG = {
+// ── RENDER ───────────────────────────────────────────────────
+const SV = {
   layers: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
   clock:  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
   user:   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
@@ -942,13 +879,11 @@ function renderList(data) {
     return;
   }
   D.stEmpty.style.display = 'none';
-
   D.list.innerHTML = data.map(row => {
     const tags = row.tags || [];
     const tagHtml = tags.map((t, i) =>
       `<span class="tg tg${i % 5}" data-action="filter" data-tag="${esc(t)}">${esc(t)}</span>`
     ).join('');
-
     return `
     <div class="card" data-id="${row.id}">
       <div class="ctop" data-action="view">
@@ -956,25 +891,24 @@ function renderList(data) {
         <div class="cbdy">
           <div class="ctitl">${esc(row.title)}</div>
           <div class="cmeta">
-            <span class="ccomp">${SVG.layers}${esc(row.component_failed)}</span>
-            <span class="ctim">${SVG.clock}${relTime(row.timestamp)}</span>
-            ${row.created_by ? `<span class="cath">${SVG.user}${esc(row.created_by)}</span>` : ''}
+            <span class="ccomp">${SV.layers}${esc(row.component_failed)}</span>
+            <span class="ctim">${SV.clock}${relTime(row.timestamp)}</span>
+            ${row.created_by ? `<span class="cath">${SV.user}${esc(row.created_by)}</span>` : ''}
           </div>
         </div>
-        <div class="cchev" style="width:14px;height:14px">${SVG.chev}</div>
+        <div class="cchev" style="width:14px;height:14px">${SV.chev}</div>
       </div>
       <div class="cbot">
         <div class="ctags">${tagHtml}</div>
         <div class="cacts">
-          <button class="btn bg sm" data-action="edit">${SVG.edit} Edit</button>
-          <button class="btn bd-btn sm" data-action="delete">${SVG.trash} Delete</button>
+          <button class="btn bg sm" data-action="edit">${SV.edit} Edit</button>
+          <button class="btn bd-btn sm" data-action="delete">${SV.trash} Delete</button>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-// Single delegated listener for all card interactions
 D.list.addEventListener('click', e => {
   const target = e.target.closest('[data-action]');
   if (!target) return;
@@ -982,7 +916,6 @@ D.list.addEventListener('click', e => {
   if (!card) return;
   const row = rows.find(r => r.id === parseInt(card.dataset.id, 10));
   if (!row) return;
-
   const action = target.dataset.action;
   if (action === 'view')   openDetail(row);
   if (action === 'edit')   { e.stopPropagation(); fillForm(row); closeDetail(); }
@@ -991,157 +924,118 @@ D.list.addEventListener('click', e => {
     e.stopPropagation();
     D.tagSel.value = target.dataset.tag;
     applyFilter();
-    toast(`Filtered by tag: ${target.dataset.tag}`, 'inf', 2000);
+    toast(`Filtered by: ${target.dataset.tag}`, 'inf', 2000);
   }
 });
 
-/* ═══════════════════════════════════════════════════════════════
-   DETAIL MODAL
-═══════════════════════════════════════════════════════════════ */
+// ── DETAIL MODAL ─────────────────────────────────────────────
 function openDetail(row) {
   activeRow = row;
   D.mTitle.textContent = row.title;
-  D.mComp.innerHTML    = `${SVG.layers}${esc(row.component_failed)}`;
-
-  const sections = [
+  D.mComp.innerHTML = `${SV.layers}${esc(row.component_failed)}`;
+  const secs = [
     ['Cascade Explanation',  row.cascade_explanation],
     ['Feedback Loops',       row.feedback_loops],
     ['Preventive Measures',  row.preventive_measures],
   ].filter(([, v]) => v);
-
-  let html = sections.map(([lbl, val]) => `
-    <div class="msec">
-      <div class="mlbl">${lbl}</div>
-      <div class="mval">${esc(val)}</div>
-    </div>
-    <div class="mdiv"></div>
-  `).join('');
-
+  let html = secs.map(([l, v]) =>
+    `<div class="msec"><div class="mlbl">${l}</div><div class="mval">${esc(v)}</div></div><div class="mdiv"></div>`
+  ).join('');
   if (row.tags && row.tags.length) {
-    html += `<div class="msec">
-      <div class="mlbl">Tags</div>
+    html += `<div class="msec"><div class="mlbl">Tags</div>
       <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px">
-        ${row.tags.map((t, i) => `<span class="tg tg${i % 5}">${esc(t)}</span>`).join('')}
-      </div>
-    </div>`;
+        ${row.tags.map((t, i) => `<span class="tg tg${i%5}">${esc(t)}</span>`).join('')}
+      </div></div>`;
   }
-
   D.mBody.innerHTML = html || '<p style="color:var(--t3);font-size:13px">No additional details recorded.</p>';
   D.mMeta.textContent = `Logged ${fullTime(row.timestamp)}${row.created_by ? ' · ' + row.created_by : ''}`;
   D.detOv.style.display = 'flex';
 }
 
 function closeDetail() { D.detOv.style.display = 'none'; }
-
 D.detClose.addEventListener('click', closeDetail);
 D.detOv.addEventListener('click', e => { if (e.target === D.detOv) closeDetail(); });
 D.mEdit.addEventListener('click', () => { if (activeRow) { fillForm(activeRow); closeDetail(); } });
-D.mDel.addEventListener('click', () => { if (activeRow) { startDel(activeRow.id); closeDetail(); } });
+D.mDel.addEventListener('click',  () => { if (activeRow) { startDel(activeRow.id); closeDetail(); } });
 
-/* ═══════════════════════════════════════════════════════════════
-   DELETE FLOW
-═══════════════════════════════════════════════════════════════ */
-function startDel(id) { delPending = id; D.confOv.style.display = 'flex'; }
-function closeDel()   { delPending = null; D.confOv.style.display = 'none'; }
+// ── DELETE ───────────────────────────────────────────────────
+function startDel(id) { delPend = id; D.confOv.style.display = 'flex'; }
+function closeDel()   { delPend = null; D.confOv.style.display = 'none'; }
 
 D.confOk.addEventListener('click', async () => {
-  if (!delPending) return;
+  if (!delPend) return;
   D.confOv.style.display = 'none';
   try {
-    await db.del(delPending);
+    await db.del(delPend);
     toast('Incident deleted', 'ok');
-    delPending = null;
-    await loadAndRender();
-  } catch (err) {
-    toast(err.message, 'err', 7000);
-  }
+    delPend = null;
+    await loadRender();
+  } catch (err) { toast(err.message, 'err', 7000); }
 });
-
 D.confNo.addEventListener('click', closeDel);
 D.confOv.addEventListener('click', e => { if (e.target === D.confOv) closeDel(); });
 
-/* ═══════════════════════════════════════════════════════════════
-   LOAD & RENDER PIPELINE
-   Fetch from DB → update local cache → refresh UI (no page reload)
-═══════════════════════════════════════════════════════════════ */
-async function loadAndRender() {
+// ── LOAD & RENDER ────────────────────────────────────────────
+async function loadRender() {
   rows = await db.all();
   D.ebadge.textContent = `${rows.length} ${rows.length === 1 ? 'entry' : 'entries'}`;
-  buildTagSelect(rows);
+  buildTagSel(rows);
   applyFilter();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   INIT — runs on page load
-═══════════════════════════════════════════════════════════════ */
+// ── INIT ─────────────────────────────────────────────────────
 async function init() {
-  setStatus('', 'Connecting');
+  setStatus('', 'Connecting…');
   D.stLoad.style.display  = '';
   D.stEmpty.style.display = 'none';
   D.list.innerHTML        = '';
 
   try {
-    // 1. Bootstrap table (no-op if already exists)
-    await ensureSchema();
-
-    // 2. Load existing rows and render
-    await loadAndRender();
-
-    // 3. Mark connected
+    await ensureSchema();   // CREATE TABLE IF NOT EXISTS — safe every time
+    await loadRender();
     setStatus('ok', 'Connected');
     toast('Connected to Neon', 'ok', 2500);
-
   } catch (err) {
     console.error('[Init]', err);
     setStatus('err', 'Connection failed');
     D.stLoad.style.display  = 'none';
     D.stEmpty.style.display = '';
     D.stEmpty.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--bd2)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--bd2)">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
       <div class="et">Connection failed</div>
       <div class="es" style="max-width:320px;word-break:break-word">${esc(err.message)}</div>
-      <button class="btn bs sm" style="margin-top:12px" onclick="init()">Retry Connection</button>
-    `;
+      <button class="btn bs sm" style="margin-top:14px" onclick="init()">Retry</button>`;
     toast(err.message, 'err', 8000);
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   UTILITIES
-═══════════════════════════════════════════════════════════════ */
-
-/** Escape HTML to prevent XSS when inserting user content into innerHTML */
+// ── UTILS ────────────────────────────────────────────────────
 function esc(s) {
   if (!s) return '';
   return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
-/** Human-readable relative time (e.g. "3h ago") */
 function relTime(ts) {
   if (!ts) return '';
   const m = Math.floor((Date.now() - new Date(ts)) / 60000);
   if (m < 1)     return 'just now';
   if (m < 60)    return `${m}m ago`;
-  if (m < 1440)  return `${Math.floor(m / 60)}h ago`;
-  if (m < 10080) return `${Math.floor(m / 1440)}d ago`;
-  return new Date(ts).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  if (m < 1440)  return `${Math.floor(m/60)}h ago`;
+  if (m < 10080) return `${Math.floor(m/1440)}d ago`;
+  return new Date(ts).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
 }
 
-/** Full formatted timestamp for the detail modal */
 function fullTime(ts) {
   if (!ts) return '';
   return new Date(ts).toLocaleString('en-GB', {
-    day: '2-digit', month: 'short', year: 'numeric',
-    hour: '2-digit', minute: '2-digit',
+    day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'
   });
 }
 
-// Boot
 init();
 </script>
 </body>
